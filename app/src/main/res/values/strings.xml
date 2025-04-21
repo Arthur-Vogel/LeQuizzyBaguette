@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="username">Username</string>
+    <string name="admin_area">Admin Area</string>
+    <string name="logout">logout</string>
+    <string name="preference_file_key">PreferenceFileName</string>
+    <string name="preference_user_id_key">PreferenceUserIdKey</string>
 </resources>
