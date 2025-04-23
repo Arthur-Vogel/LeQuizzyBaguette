@@ -2,22 +2,39 @@ package com.example.quizz;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.quizz.User;
+
+import java.util.List;
+
 @Dao
 public interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(User... users);
+    void insert(User... user);
 
-    @Query("SELECT * FROM users WHERE username = :username AND password = :password")
-    LiveData<User> getUser(String username, String password);
+    @Delete
+    void delete(User user);
 
-    @Query("DELETE FROM users")
+    @Query("DELETE FROM " + AppDatabase.USER_TABLE)
     void deleteAll();
 
-    @Query("SELECT * FROM users WHERE username = :username AND password = :password LIMIT 1")
+    @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " ORDER BY username")
+    LiveData<List<User>> getAllUsers();
+
+    @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE username = :username AND password = :password")
+    LiveData<User> getUser(String username, String password);
+
+    @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE username = :username AND password = :password LIMIT 1")
     User getUserSync(String username, String password);
+
+    @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE username == :username" )
+    LiveData<User> getUserByUserName(String username);
+
+    @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE id == :userId" )
+    LiveData<User> getUserByUserId(int userId);
 }
 

@@ -1,0 +1,203 @@
+package com.example.quizz;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
+
+import com.example.quizz.databinding.ActivityLandingPageBinding;
+
+public class LandingPage extends AppCompatActivity {
+
+    static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.quizz.SAVED_INSTANCE_STATE_USERID_KEY";
+    private static final String MAIN_ACTIVITY_USER_ID = "com.example.quizz.MAIN_ACTIVITY_USER_ID";
+
+    public static final String TAG = "DAC_LEQUIZZYBAGUETTE";
+    ActivityLandingPageBinding binding;
+    private UserRepository repository;
+
+    private static final int LOGGED_OUT = -1;
+    private int loggedInUserId = -1;
+
+    private User user;
+
+    public static Intent LandingPageIntentFactory(Context applicationContext, int userId) {
+        Intent intent = new Intent(applicationContext, LandingPage.class);
+        intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
+        return intent;
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityLandingPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        repository = UserRepository.getRepository(getApplication());
+        if (repository == null){
+            Log.println(Log.ERROR, TAG, "Repository null");
+        }
+        loginUser(savedInstanceState);
+
+        // DEBUG
+        User user2 = new User("admin2", "admin2");
+        user2.setAdmin(true);
+        repository.insertUser(user);
+        repository.getAllUsers().observe(this, users -> {
+            Log.i(TAG, "Users in DB: " + users.size());
+            for (User u : users) {
+                Log.i(TAG, "User: " + u.username);
+            }
+        });
+        Log.println(Log.INFO, TAG, String.format("user admin Id is "+ repository.getUserByUserId(1).getValue()));
+        Log.println(Log.INFO, TAG, String.format("user Id = "+ loggedInUserId));
+        Log.println(Log.INFO, TAG, "User: " + repository.getUserByUserId(loggedInUserId).getValue());
+
+        // User not logged in
+        if (loggedInUserId == -1){
+            Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
+            startActivity(intent);
+        }
+        updateSharedPreference();
+
+        if (user == null){
+            Log.println(Log.ERROR, TAG, "USER NULL");
+        }
+//        else {
+//            if (user.isAdmin) {
+//                binding.AdminAreaButton.setVisibility(View.VISIBLE);
+//                binding.AdminAreaButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        // Admin button
+//
+//                    }
+//                });
+//            } else {
+//                binding.AdminAreaButton.setVisibility(View.INVISIBLE);
+//            }
+//        }
+
+        binding.logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLogoutDialog();
+            }
+        });
+    }
+
+    private void logout() {
+        loggedInUserId = LOGGED_OUT;
+        updateSharedPreference();
+        getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+    }
+
+    private void loginUser(Bundle savedInstanceState) {
+        Log.i(TAG, "loginUser function started");
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_user_id_key), LOGGED_OUT);
+
+        if (loggedInUserId == LOGGED_OUT && savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
+            Log.i(TAG, "Restoring user ID from savedInstanceState");
+            loggedInUserId = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USERID_KEY, LOGGED_OUT);
+        }
+
+        if (loggedInUserId == LOGGED_OUT) {
+            Log.i(TAG, "Getting user ID from intent extras");
+            loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+        }
+
+        if (loggedInUserId == LOGGED_OUT) {
+            Log.e(TAG, "User ID still not found. Redirecting to login screen.");
+            startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+            return;
+        }
+
+        // Now observe the user LiveData — this ensures we react once the user is actually loaded
+        repository.getUserByUserId(loggedInUserId).observe(this, user -> {
+            if (user == null) {
+                Log.e(TAG, "User not found in DB. Likely DB not initialized yet.");
+                Toast.makeText(this, "Error loading user. Try restarting app.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            this.user = user;
+            Log.i(TAG, "User loaded: " + user.username);
+            invalidateOptionsMenu();
+
+            // Optional: show a message or update UI
+            updateSharedPreference();
+            checkIfAdmin(user);
+        });
+    }
+
+    private void checkIfAdmin(User user) {
+        if (user.isAdmin) {
+            binding.AdminAreaButton.setVisibility(View.VISIBLE);
+            binding.AdminAreaButton.setOnClickListener(v -> {
+                // Handle admin button
+            });
+        } else {
+            binding.AdminAreaButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void updateSharedPreference() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
+        sharedPrefEditor.putInt(getString(R.string.preference_user_id_key), loggedInUserId);
+        sharedPrefEditor.apply();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY, loggedInUserId);
+        updateSharedPreference();
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LandingPage.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage("Logout?");
+
+        alertBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertBuilder.create().show();
+    }
+
+}

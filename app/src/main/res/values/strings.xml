@@ -4,4 +4,9 @@
     <string name="login_username">login_username</string>
     <string name="password">password</string>
     <string name="login_button">login_button</string>
+    <string name="username">Username</string>
+    <string name="admin_only">Admin Only 😎</string>
+    <string name="logout">Logout</string>
+    <string name="preference_file_key">PreferenceFileKey</string>
+    <string name="preference_user_id_key">PreferenceUserIdKey</string>
 </resources>
