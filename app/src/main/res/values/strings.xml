@@ -9,4 +9,7 @@
     <string name="logout">Logout</string>
     <string name="preference_file_key">PreferenceFileKey</string>
     <string name="preference_user_id_key">PreferenceUserIdKey</string>
+    <string name="le_quizzy_baguette">Le Quizzy Baguette</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
 </resources>
