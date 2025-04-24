@@ -2,6 +2,7 @@ package com.example.quizz;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -29,12 +30,26 @@ public class LoginActivity extends AppCompatActivity {
 
         repository = UserRepository.getRepository(getApplication());
 
+        if (isAlreadyLogged()){ return; }
+
         binding.loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 verifyUser();
             }
         });
+    }
+
+    private boolean isAlreadyLogged(){
+
+        // Test if user is still logged in from previous sessions
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        int loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_user_id_key), -1);
+        if (loggedInUserId != -1){
+            startActivity(LandingPage.LandingPageIntentFactory(getApplicationContext(), loggedInUserId));
+            return true;
+        }
+        return false;
     }
 
     private void verifyUser() {

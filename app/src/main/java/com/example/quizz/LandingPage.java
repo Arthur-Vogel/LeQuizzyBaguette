@@ -54,20 +54,6 @@ public class LandingPage extends AppCompatActivity {
             Log.println(Log.ERROR, TAG, "Repository null");
         }
         loginUser(savedInstanceState);
-        //Log.d(TAG,getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT));
-        // DEBUG
-        User user2 = new User("admin2", "admin2");
-        user2.setAdmin(true);
-        repository.insertUser(user2);
-        repository.getAllUsers().observe(this, users -> {
-            Log.i(TAG, "Users in DB: " + users.size());
-            for (User u : users) {
-                Log.i(TAG, "User: " + u.username);
-            }
-        });
-        Log.println(Log.INFO, TAG, String.format("user admin Id is "+ repository.getUserByUserId(1).getValue()));
-        Log.println(Log.INFO, TAG, String.format("user Id = "+ loggedInUserId));
-        Log.println(Log.INFO, TAG, "User: " + repository.getUserByUserId(loggedInUserId).getValue());
 
         // User not logged in
         if (loggedInUserId == -1){
@@ -75,27 +61,6 @@ public class LandingPage extends AppCompatActivity {
             startActivity(intent);
         }
         updateSharedPreference();
-
-        if (user == null){
-            Log.println(Log.ERROR, TAG, "USER NULL");
-        }
-        else {
-            Log.println(Log.ERROR, TAG, "IsAdmin: " + user.isAdmin);
-        }
-//        else {
-//            if (user.isAdmin) {
-//                binding.AdminAreaButton.setVisibility(View.VISIBLE);
-//                binding.AdminAreaButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        // Admin button
-//
-//                    }
-//                });
-//            } else {
-//                binding.AdminAreaButton.setVisibility(View.INVISIBLE);
-//            }
-//        }
 
         binding.logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,9 +82,9 @@ public class LandingPage extends AppCompatActivity {
     private void loginUser(Bundle savedInstanceState) {
         Log.i(TAG, "loginUser function started");
 
-        loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
-        //SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        //loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_user_id_key), LOGGED_OUT);
+        //loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_user_id_key), LOGGED_OUT);
 
         if (loggedInUserId == LOGGED_OUT && savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
             Log.i(TAG, "Restoring user ID from savedInstanceState");
@@ -147,11 +112,12 @@ public class LandingPage extends AppCompatActivity {
 
             this.user = user;
             Log.i(TAG, "User loaded: " + user.username);
-            checkIfAdmin(user);
             //invalidateOptionsMenu();
 
             // Optional: show a message or update UI
-            //updateSharedPreference();
+            updateSharedPreference();
+            checkIfAdmin(user);
+            binding.UsernameTextView.setText(user.username);
         });
     }
 
