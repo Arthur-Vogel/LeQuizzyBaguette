@@ -54,11 +54,11 @@ public class LandingPage extends AppCompatActivity {
             Log.println(Log.ERROR, TAG, "Repository null");
         }
         loginUser(savedInstanceState);
-
+        //Log.d(TAG,getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT));
         // DEBUG
         User user2 = new User("admin2", "admin2");
         user2.setAdmin(true);
-        repository.insertUser(user);
+        repository.insertUser(user2);
         repository.getAllUsers().observe(this, users -> {
             Log.i(TAG, "Users in DB: " + users.size());
             for (User u : users) {
@@ -78,6 +78,9 @@ public class LandingPage extends AppCompatActivity {
 
         if (user == null){
             Log.println(Log.ERROR, TAG, "USER NULL");
+        }
+        else {
+            Log.println(Log.ERROR, TAG, "IsAdmin: " + user.isAdmin);
         }
 //        else {
 //            if (user.isAdmin) {
@@ -114,8 +117,9 @@ public class LandingPage extends AppCompatActivity {
     private void loginUser(Bundle savedInstanceState) {
         Log.i(TAG, "loginUser function started");
 
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_user_id_key), LOGGED_OUT);
+        loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+        //SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        //loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_user_id_key), LOGGED_OUT);
 
         if (loggedInUserId == LOGGED_OUT && savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
             Log.i(TAG, "Restoring user ID from savedInstanceState");
@@ -143,21 +147,25 @@ public class LandingPage extends AppCompatActivity {
 
             this.user = user;
             Log.i(TAG, "User loaded: " + user.username);
-            invalidateOptionsMenu();
+            checkIfAdmin(user);
+            //invalidateOptionsMenu();
 
             // Optional: show a message or update UI
-            updateSharedPreference();
-            checkIfAdmin(user);
+            //updateSharedPreference();
         });
     }
 
     private void checkIfAdmin(User user) {
+        Log.println(Log.ERROR, TAG, "user" + user.isAdmin + user.username);
         if (user.isAdmin) {
+            Toast.makeText(this, "karthi if", Toast.LENGTH_SHORT).show();
+
             binding.AdminAreaButton.setVisibility(View.VISIBLE);
             binding.AdminAreaButton.setOnClickListener(v -> {
                 // Handle admin button
             });
         } else {
+            Toast.makeText(this, "karthi else", Toast.LENGTH_SHORT).show();
             binding.AdminAreaButton.setVisibility(View.INVISIBLE);
         }
     }
