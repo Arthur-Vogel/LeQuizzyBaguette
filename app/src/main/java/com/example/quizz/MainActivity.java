@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO: Replace with create user activity here
-                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+                startActivity(SignUpActivity.signupIntentFactory(getApplicationContext()));
             }
         });
     }
