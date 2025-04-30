@@ -1,6 +1,5 @@
 package com.example.quizz;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -16,7 +15,7 @@ import com.example.quizz.question.QuestionDAO;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Question.class}, version = 10, exportSchema = false)
+@Database(entities = {User.class, Question.class}, version = 11, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
     private final static String DATABASE_NAME = "quizz_database";
@@ -60,22 +59,18 @@ public abstract class AppDatabase extends RoomDatabase {
                 User testUser1 = new User("testuser1", "testuser1");
                 testUser1.isAdmin = false;
                 dao.insert(testUser1);
+
+                // Insert Question default values
+                QuestionDAO questionDAO = INSTANCE.questionDAO();
+                questionDAO.deleteAll();
+                Question question1 = new Question("What is the capital of France?", 0, 0, 100);
+                questionDAO.insert(question1);
+
+                Question question2 = new Question("What colors are in the French flag?", 1, 0, 100);
+                questionDAO.insert(question2);
             });
         }
     };
 
-//    private static final RoomDatabase.Callback addUsersCallback = new RoomDatabase.Callback() {
-//        @Override
-//        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-//            super.onCreate(db);
-//            Executors.newSingleThreadExecutor().execute(() -> {
-//                UserDAO dao = INSTANCE.userDAO();
-//                dao.deleteAll();
-//                User admin = new User("admin", "admin123");
-//                admin.isAdmin = true;
-//                dao.insert(admin, new User("testuser", "testpass"));
-//            });
-//        }
-//    };
 }
 

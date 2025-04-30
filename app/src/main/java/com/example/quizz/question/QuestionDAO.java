@@ -8,7 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.quizz.AppDatabase;
-import com.example.quizz.User;
 
 import java.util.List;
 
@@ -35,6 +34,6 @@ public interface QuestionDAO {
     @Query("SELECT id FROM " + AppDatabase.QUESTION_TABLE + " WHERE question == :questionString")
     int getIdByQuestionString(String questionString);
 
-    @Query("DELETE * FROM " + AppDatabase.QUESTION_TABLE + " WHERE topicId == :topicId")
+    @Query("DELETE FROM " + AppDatabase.QUESTION_TABLE + " WHERE topicId == :topicId")
     void deleteAllByTopicId(int topicId);
 }
