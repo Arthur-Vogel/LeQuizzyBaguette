@@ -45,7 +45,7 @@ public class UserRepository {
         try {
             return future.get();
         }catch (InterruptedException | ExecutionException e){
-            Log.d(LandingPage.TAG, "Problem getting GymLogRepository, thread error");
+            Log.d(LandingPage.TAG, "Problem getting UserRepository, thread error");
         }
         return null;
     }
