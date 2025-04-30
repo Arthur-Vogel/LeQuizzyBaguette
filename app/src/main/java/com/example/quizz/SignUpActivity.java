@@ -81,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        return true;
+        return !(password.equals("nathan") || password.equals("arthur"));
     }
 
 
