@@ -24,14 +24,17 @@ public interface QuestionDAO {
     void deleteAll();
 
     @Query("SELECT * FROM " + AppDatabase.QUESTION_TABLE + " ORDER BY id")
-    LiveData<List<User>> getAllUsers();
+    LiveData<List<Question>> getAllQuestion();
 
     @Query("SELECT * FROM " + AppDatabase.QUESTION_TABLE + " WHERE topicId == :topicId" )
-    LiveData<User> getQuestionsByTopicId(int topicId);
+    LiveData<Question> getQuestionByTopicId(int topicId);
 
     @Query("SELECT question FROM " + AppDatabase.QUESTION_TABLE + " WHERE id == :questionId" )
     String getQuestionById(int questionId);
 
     @Query("SELECT id FROM " + AppDatabase.QUESTION_TABLE + " WHERE question == :questionString")
     int getIdByQuestionString(String questionString);
+
+    @Query("DELETE * FROM " + AppDatabase.QUESTION_TABLE + " WHERE topicId == :topicId")
+    void deleteAllByTopicId(int topicId);
 }
