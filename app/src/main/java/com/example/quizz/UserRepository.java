@@ -68,6 +68,13 @@ public class UserRepository {
         });
     }
 
+    public void renameUser(String newName, int userId) {
+        AppDatabase.databaseWriteExecutor.execute(() ->
+        {
+            userDAO.renameUser(newName, userId);
+        });
+    }
+
     public User getUserByUsernameAndPassword(String username, String password) {
         return userDAO.getUserSync(username, password);
     }

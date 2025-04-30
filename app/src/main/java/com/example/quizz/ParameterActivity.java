@@ -14,16 +14,19 @@ import com.example.quizz.databinding.ActivityParameterBinding;
 
 public class ParameterActivity extends AppCompatActivity {
     ActivityParameterBinding binding;
+    private UserRepository userRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityParameterBinding.inflate(getLayoutInflater());
+        userRepository = UserRepository.getRepository(getApplication());
 
         binding.deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //delete account
+                //userRepository.deleteUser(user.getId());
             }
         });
 
@@ -38,6 +41,12 @@ public class ParameterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //rename user
+                String newName = binding.nameInput.getText().toString();
+                if (newName.isEmpty()) {
+                    // Show error message
+                    return;
+                }
+               // UserRepository.renameUser(newName, userRepository.getUserId());
             }
         });
 
@@ -56,4 +65,6 @@ public class ParameterActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+
 }
