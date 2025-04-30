@@ -8,7 +8,7 @@
     tools:context="com.example.quizz.ParameterActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Title"
         android:layout_width="220dp"
         android:layout_height="54dp"
         android:text="Parameter"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.073" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/lightModeSwitch"
         android:layout_width="116dp"
         android:layout_height="53dp"
         android:text="Light mode"
@@ -31,11 +31,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.911"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/Title"
         app:layout_constraintVertical_bias="0.067" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/restartPointButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Restart point"
@@ -47,7 +47,7 @@
         app:layout_constraintVertical_bias="0.686" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/deleteAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete account"
@@ -59,7 +59,7 @@
         app:layout_constraintVertical_bias="0.89" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/renameButton"
         android:layout_width="128dp"
         android:layout_height="49dp"
         android:text="rename"
@@ -71,7 +71,7 @@
         app:layout_constraintVertical_bias="0.576" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/nameAndPointsTextView"
         android:layout_width="147dp"
         android:layout_height="77dp"
         android:text="Your name \n your points"
