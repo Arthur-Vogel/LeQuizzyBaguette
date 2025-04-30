@@ -8,6 +8,16 @@
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/parisImage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:contentDescription="@string/paris_skyline_desc"
+        android:scaleType="centerCrop"
+        android:src="@drawable/paris_skyline"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
     <TextView
         android:id="@+id/TitleText"
         android:layout_width="wrap_content"
