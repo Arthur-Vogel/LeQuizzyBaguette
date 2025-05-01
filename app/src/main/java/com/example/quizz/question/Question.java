@@ -5,7 +5,10 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.quizz.AppDatabase;
+import com.example.quizz.answer.Answer;
+import com.example.quizz.answer.AnswerRepository;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity(tableName = AppDatabase.QUESTION_TABLE)
@@ -16,19 +19,20 @@ public class Question {
     @NonNull
     public String question;
 
-    // Refers to AnswerID from Answer table
-    @NonNull
-    public int answerId;
+    // Refers to AnswerId object from Answer table
+    public int answerListId;
 
     public int topicId;
 
     public int scorePoints;
 
-    public Question(@NonNull String question, @NonNull int answerId, int topicId,int scorePoints){
+    public Question(@NonNull String question, int answerListId, int topicId,int scorePoints){
         this.question = question;
-        this.answerId = answerId;
+        this.answerListId = answerListId;
         this.topicId = topicId;
         this.scorePoints = scorePoints;
+
+        //answerList = getAnswerListByQuestionId(id);   -> Je crois que ce n'est pas possible de faire ça ici
     }
 
     public int getTopicId() {
@@ -56,14 +60,6 @@ public class Question {
         this.question = question;
     }
 
-    public int getAnswerId() {
-        return answerId;
-    }
-
-    public void setAnswerId(int answerId) {
-        this.answerId = answerId;
-    }
-
     public int getScorePoints() {
         return scorePoints;
     }
@@ -76,11 +72,11 @@ public class Question {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Question question1 = (Question) o;
-        return id == question1.id && answerId == question1.answerId && topicId == question1.topicId && Objects.equals(question, question1.question);
+        return id == question1.id && topicId == question1.topicId && Objects.equals(question, question1.question);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, question, answerId, topicId);
+        return Objects.hash(id, question, topicId);
     }
 }

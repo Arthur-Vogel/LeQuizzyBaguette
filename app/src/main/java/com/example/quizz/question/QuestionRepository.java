@@ -9,6 +9,7 @@ import com.example.quizz.AppDatabase;
 import com.example.quizz.LandingPage;
 import com.example.quizz.User;
 import com.example.quizz.UserRepository;
+import com.example.quizz.answer.Answer;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -95,4 +96,5 @@ public class QuestionRepository {
     public void deleteAll(){
         AppDatabase.databaseWriteExecutor.execute(questionDAO::deleteAll);
     }
+
 }

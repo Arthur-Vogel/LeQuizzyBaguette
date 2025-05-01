@@ -9,20 +9,24 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.quizz.answer.Answer;
+import com.example.quizz.answer.AnswerDAO;
 import com.example.quizz.question.Question;
 import com.example.quizz.question.QuestionDAO;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Question.class}, version = 11, exportSchema = false)
+@Database(entities = {User.class, Question.class, Answer.class}, version = 12, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
     private final static String DATABASE_NAME = "quizz_database";
     public static final String QUESTION_TABLE = "question_table";
+    public static final String ANSWER_TABLE = "answer_table";
     public static final String USER_TABLE = "user_table";
     public abstract UserDAO userDAO();
     public abstract QuestionDAO questionDAO();
+    public abstract AnswerDAO answerDAO();
     private static final int NUMBER_OF_THREADS = 4;
 
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -60,14 +64,31 @@ public abstract class AppDatabase extends RoomDatabase {
                 testUser1.isAdmin = false;
                 dao.insert(testUser1);
 
-                // Insert Question default values
+                // Insert Question & Answer default values
                 QuestionDAO questionDAO = INSTANCE.questionDAO();
+                AnswerDAO answerDAO = INSTANCE.answerDAO();
                 questionDAO.deleteAll();
                 Question question1 = new Question("What is the capital of France?", 0, 0, 100);
                 questionDAO.insert(question1);
+                Answer answer1 = new Answer(question1.id, "Lyon", false);
+                answerDAO.insert(answer1);
+                Answer answer2 = new Answer(question1.id, "Paris", true);
+                answerDAO.insert(answer2);
+                Answer answer3 = new Answer(question1.id, "Marseille", false);
+                answerDAO.insert(answer3);
+                Answer answer4 = new Answer(question1.id, "Toulouse", false);
+                answerDAO.insert(answer4);
 
                 Question question2 = new Question("What colors are in the French flag?", 1, 0, 100);
                 questionDAO.insert(question2);
+                Answer answer5 = new Answer(question2.id, "Blue, White, Red, Black", false);
+                answerDAO.insert(answer5);
+                Answer answer6 = new Answer(question2.id, "Purple, Blue, White", false);
+                answerDAO.insert(answer6);
+                Answer answer7 = new Answer(question2.id, "Blue, White, Red", true);
+                answerDAO.insert(answer7);
+                Answer answer8 = new Answer(question2.id, "Yellow, Orange, Red", false);
+                answerDAO.insert(answer8);
             });
         }
     };
