@@ -15,25 +15,29 @@ import com.example.quizz.databinding.ActivityParameterBinding;
 public class ParameterActivity extends AppCompatActivity {
     ActivityParameterBinding binding;
     private UserRepository userRepository;
+    //private User user;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    //@Override
+    protected void onCreate(Bundle savedInstanceState, User user) {
         super.onCreate(savedInstanceState);
         binding = ActivityParameterBinding.inflate(getLayoutInflater());
         userRepository = UserRepository.getRepository(getApplication());
+
 
         binding.deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //delete account
-                //userRepository.deleteUser(user.getId());
+                userRepository.removeUser(user);
+
             }
         });
 
         binding.restartPointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //reset point
+                user.score = 0; // NE MARCHE PAS NE CHANGE PAS DE VALEUR DANS UNE DB!!!!!
+
             }
         });
 
@@ -46,7 +50,8 @@ public class ParameterActivity extends AppCompatActivity {
                     // Show error message
                     return;
                 }
-               // UserRepository.renameUser(newName, userRepository.getUserId());
+               UserRepository.renameUser(newName, user.id, userRepository.userDAO);
+                // Update the UI or show a success message
             }
         });
 
