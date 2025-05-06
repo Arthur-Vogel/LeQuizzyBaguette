@@ -24,7 +24,6 @@ public class ChooseTypeActivity extends AppCompatActivity {
     String[] difficulties = { "Random", "Easy", "Normal", "Hard", "Impossible" };
     AutoCompleteTextView topicDropDown;
     AutoCompleteTextView difficultyDropdown;
-    ArrayAdapter<String> topicAdapter;
     ArrayAdapter<String> difficultyAdapter;
 
     public static Intent chooseTypeIntentFactory(Context context) {
