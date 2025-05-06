@@ -21,7 +21,7 @@ import com.example.quizz.topic.TopicDAO;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Question.class, Answer.class, Topic.class}, version = 14, exportSchema = false)
+@Database(entities = {User.class, Question.class, Answer.class, Topic.class}, version = 17, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
     private final static String DATABASE_NAME = "quizz_database";
