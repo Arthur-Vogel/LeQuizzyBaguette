@@ -21,7 +21,7 @@ import com.example.quizz.databinding.ActivityParameterBinding;
 public class ParameterActivity extends AppCompatActivity {
     ActivityParameterBinding binding;
     private UserRepository userRepository;
-    private LandingPage landingPage;
+    //private LandingPage landingPage;
     private User user;
 
     @Override
@@ -50,20 +50,24 @@ public class ParameterActivity extends AppCompatActivity {
                     + "Score : "+ this.user.score);
         });
 
+        LandingPage landingPage = LandingPage.getInstance();
+        if (landingPage != null) {
+            binding.deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //delete account
+                    userRepository.removeUser(user);
+                    landingPage.logout(); // ca ca serit pas mal à faire mais ca m a l'aire galère d'appeler une fonction d'une autre classe
+                    //load main activity
+                   // startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
+                }
+            });
 
+        } else {
+            Log.d("ParameterActivity", "LandingActivity n'est pas encore initialisée.");
+        }
 
-
-
-        binding.deleteAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //delete account
-                userRepository.removeUser(user);
-                landingPage.logout();
-
-            }
-        });
 
         binding.restartPointButton.setOnClickListener(new View.OnClickListener() {
             @Override

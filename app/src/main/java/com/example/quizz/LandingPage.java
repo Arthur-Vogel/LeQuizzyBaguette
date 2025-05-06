@@ -1,5 +1,6 @@
 package com.example.quizz;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,10 @@ import androidx.lifecycle.LiveData;
 
 import com.example.quizz.databinding.ActivityLandingPageBinding;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 public class LandingPage extends AppCompatActivity {
 
     static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.quizz.SAVED_INSTANCE_STATE_USERID_KEY";
@@ -31,8 +36,10 @@ public class LandingPage extends AppCompatActivity {
     ActivityLandingPageBinding binding;
     private UserRepository repository;
 
+
     private static final int LOGGED_OUT = -1;
     private int loggedInUserId = -1;
+    private static LandingPage instance;
 
     private User user;
 
@@ -41,6 +48,9 @@ public class LandingPage extends AppCompatActivity {
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
     }
+    public static LandingPage getInstance() {
+        return instance;
+    }
 
 
     @Override
@@ -48,6 +58,7 @@ public class LandingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLandingPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        instance = this;
 
         repository = UserRepository.getRepository(getApplication());
         if (repository == null){
@@ -187,5 +198,7 @@ public class LandingPage extends AppCompatActivity {
 
         alertBuilder.create().show();
     }
+
+
 
 }
