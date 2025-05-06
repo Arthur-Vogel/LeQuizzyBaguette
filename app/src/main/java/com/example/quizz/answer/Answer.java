@@ -4,8 +4,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.quizz.AppDatabase;
-
-import java.util.List;
 import java.util.Objects;
 
 @Entity(tableName = AppDatabase.ANSWER_TABLE)

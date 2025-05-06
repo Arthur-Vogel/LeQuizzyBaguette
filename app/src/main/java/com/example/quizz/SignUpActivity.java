@@ -6,16 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
-import com.example.quizz.databinding.ActivityLoginBinding;
 import com.example.quizz.databinding.ActivitySignUpBinding;
+import com.example.quizz.user.User;
+import com.example.quizz.user.UserRepository;
 
 public class SignUpActivity extends AppCompatActivity {
 

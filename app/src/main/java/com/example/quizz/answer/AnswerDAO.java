@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.quizz.AppDatabase;
-
 import java.util.List;
 
 @Dao
