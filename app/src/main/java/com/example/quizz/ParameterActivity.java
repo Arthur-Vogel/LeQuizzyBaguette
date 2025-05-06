@@ -21,6 +21,7 @@ import com.example.quizz.databinding.ActivityParameterBinding;
 public class ParameterActivity extends AppCompatActivity {
     ActivityParameterBinding binding;
     private UserRepository userRepository;
+    private LandingPage landingPage;
     private User user;
 
     @Override
@@ -31,6 +32,7 @@ public class ParameterActivity extends AppCompatActivity {
         binding = ActivityParameterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         userRepository = UserRepository.getRepository(getApplication());
+        //landingPage = LandingPage.inflate(getApplicationContext(), userRepository);
 
         int userId = getIntent().getIntExtra("userId",-1);
         Log.d("DEBUG", "Reçu userId = " + userId);
@@ -42,14 +44,13 @@ public class ParameterActivity extends AppCompatActivity {
                 return;
             }
             this.user = user;
-            /*binding.nameAndPointsTextView.setText("Name : " + this.user.username + "\n"
-                    + "Score : "+ this.user.score);*/
+            binding.nameAndPointsTextView.setText("Name : " + this.user.username + "\n"
+                    + "Score : "+ this.user.score);
             Log.d("DEBUG", "Name : " + this.user.username + "\n"
                     + "Score : "+ this.user.score);
         });
 
-        binding.nameAndPointsTextView.setText("Name : ");
-        binding.Title.setText("Settings");
+
 
 
 
@@ -59,6 +60,7 @@ public class ParameterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //delete account
                 userRepository.removeUser(user);
+                landingPage.logout();
 
             }
         });
@@ -80,9 +82,17 @@ public class ParameterActivity extends AppCompatActivity {
                     // Show error message
                     return;
                 }
-               userRepository.renameUser(newName, user.id);
+                userRepository.renameUser(newName, user.id);
 
                 // Update the UI or show a success message
+            }
+        });
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //load the landing page
+                Intent intent = LandingPage.LandingPageIntentFactory(getApplicationContext(), user.id);
+                startActivity(intent);
             }
         });
 

@@ -8,34 +8,35 @@
         tools:context="com.example.quizz.ParameterActivity"
         tools:ignore="ExtraText">
 
-        <ImageView
-            android:id="@+id/backgroundnuage"
-            android:layout_width="760dp"
-            android:layout_height="1554dp"
-            android:contentDescription="@string/the_background_of_the_app"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.441"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/backgroundnuage" />
 
+    <ImageView
+        android:id="@+id/backgroundnuage"
+        android:layout_width="760dp"
+        android:layout_height="1554dp"
+        android:contentDescription="@string/the_background_of_the_app"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.526"
+        app:srcCompat="@drawable/backgroundnuage" />
 
-        <TextView
-            android:id="@+id/Title"
-            android:layout_width="220dp"
-            android:layout_height="54dp"
-            android:text="Parameter"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.256"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.073" />
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="220dp"
+        android:layout_height="54dp"
+        android:text="Parameter"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.087" />
 
-        <Switch
+    <Switch
             android:id="@+id/lightModeSwitch"
             android:layout_width="116dp"
             android:layout_height="53dp"
@@ -113,6 +114,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.327" />
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

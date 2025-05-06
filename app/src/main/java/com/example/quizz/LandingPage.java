@@ -69,20 +69,10 @@ public class LandingPage extends AppCompatActivity {
             }
         });
 
-        binding.parameterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //start Parameter Activity
-                //Intent intent = ParameterActivity.ParameterActivityIntentFactory(getApplicationContext());
-                Intent intent = new Intent(LandingPage.this, ParameterActivity.class);
-                intent.putExtra("userId", user.id);
-                startActivity(intent);
-            }
-        });
     }
 
-    private void logout() {
+    public void logout() {
         loggedInUserId = LOGGED_OUT;
         updateSharedPreference();
         getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
@@ -130,6 +120,18 @@ public class LandingPage extends AppCompatActivity {
             updateSharedPreference();
             checkIfAdmin(user);
             binding.UsernameTextView.setText(user.username);
+
+            binding.parameterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //start Parameter Activity
+                    //Intent intent = ParameterActivity.ParameterActivityIntentFactory(getApplicationContext());
+                    Intent intent = new Intent(LandingPage.this, ParameterActivity.class);
+                    intent.putExtra("userId", user.id);
+                    startActivity(intent);
+                }
+            });
         });
     }
 
