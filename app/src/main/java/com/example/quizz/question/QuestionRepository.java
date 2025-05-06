@@ -70,11 +70,11 @@ public class QuestionRepository {
         });
     }
 
-    public LiveData<Question> getQuestionByTopicId(int topicId){
+    public List<Question> getQuestionByTopicId(int topicId){
         return questionDAO.getQuestionByTopicId(topicId);
     }
 
-    public LiveData<List<Question>> getAllQuestion(){
+    public List<Question> getAllQuestion(){
         return questionDAO.getAllQuestion();
     }
 

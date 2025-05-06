@@ -125,7 +125,7 @@
                 <Button
                     android:id="@+id/hintButton"
                     android:layout_width="90dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="start"
                     android:backgroundTint="#8CEF5555"
                     android:gravity="center"
@@ -136,7 +136,7 @@
                     android:id="@+id/skipButton"
                     android:layout_marginStart="200dp"
                     android:layout_width="90dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="end"
                     android:gravity="center"
                     android:backgroundTint="#8CEF5555"
