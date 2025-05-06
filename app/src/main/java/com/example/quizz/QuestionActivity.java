@@ -33,6 +33,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import com.example.quizz.databinding.ActivityQuestionBinding;
+import com.example.quizz.user.User;
+import com.example.quizz.user.UserRepository;
 
 public class QuestionActivity extends AppCompatActivity {
     ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -61,8 +63,6 @@ public class QuestionActivity extends AppCompatActivity {
         intent.putExtra(USER_ID, userId);
         return intent;
     }
-
-    ActivityQuestionBinding binding;
 
     public static Intent QuestionIntentFactory(Context context) {
         return new Intent(context, QuestionActivity.class);
