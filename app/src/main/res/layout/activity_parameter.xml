@@ -11,15 +11,13 @@
 
     <ImageView
         android:id="@+id/backgroundnuage"
-        android:layout_width="760dp"
-        android:layout_height="1554dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:contentDescription="@string/the_background_of_the_app"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.438"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.526"
+        app:layout_constraintDimensionRatio="1:1"
         app:srcCompat="@drawable/backgroundnuage" />
 
     <TextView
@@ -36,71 +34,72 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.087" />
 
+
     <Switch
-            android:id="@+id/lightModeSwitch"
-            android:layout_width="116dp"
-            android:layout_height="53dp"
-            android:text="Light mode"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.911"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Title"
-            app:layout_constraintVertical_bias="0.067" />
+        android:id="@+id/lightModeSwitch"
+        android:layout_width="116dp"
+        android:layout_height="53dp"
+        android:text="Light mode"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/nameAndPointsTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title"
+        app:layout_constraintVertical_bias="0.52" />
 
-        <Button
-            android:id="@+id/restartPointButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Restart point"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.686" />
+    <Button
+        android:id="@+id/restartPointButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restart point"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/renameButton"
+        app:layout_constraintVertical_bias="0.209" />
 
-        <Button
-            android:id="@+id/deleteAccountButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete account"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.89" />
+    <Button
+        android:id="@+id/deleteAccountButton"
+        android:layout_width="132dp"
+        android:layout_height="47dp"
+        android:text="Delete account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restartPointButton"
+        app:layout_constraintVertical_bias="0.375" />
 
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="168dp"
+        android:layout_height="56dp"
+        android:autofillHints=""
+        android:hint="new name"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameAndPointsTextView"
+        app:layout_constraintVertical_bias="0.192" />
 
-        <EditText
-            android:id="@+id/nameInput"
-            android:layout_width="168dp"
-            android:layout_height="56dp"
-            android:layout_marginBottom="288dp"
-            android:autofillHints=""
-            android:hint="new name"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.104"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/renameButton"
+        android:layout_width="128dp"
+        android:layout_height="49dp"
+        android:text="rename"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.869"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameAndPointsTextView"
+        app:layout_constraintVertical_bias="0.207" />
 
-        <Button
-            android:id="@+id/renameButton"
-            android:layout_width="128dp"
-            android:layout_height="49dp"
-            android:text="rename"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.713"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.582" />
-
-        <TextView
+    <TextView
             android:id="@+id/nameAndPointsTextView"
             android:layout_width="147dp"
             android:layout_height="77dp"
