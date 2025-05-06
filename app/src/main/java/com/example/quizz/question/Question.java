@@ -5,10 +5,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.quizz.AppDatabase;
-import com.example.quizz.answer.Answer;
-import com.example.quizz.answer.AnswerRepository;
-
-import java.util.List;
 import java.util.Objects;
 
 @Entity(tableName = AppDatabase.QUESTION_TABLE)
@@ -26,7 +22,7 @@ public class Question {
 
     public int scorePoints;
 
-    public Question(@NonNull String question, int answerListId, int topicId,int scorePoints){
+    public Question(@NonNull String question, int answerListId, int topicId, int scorePoints) {
         this.question = question;
         this.answerListId = answerListId;
         this.topicId = topicId;

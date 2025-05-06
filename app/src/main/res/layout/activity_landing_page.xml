@@ -11,7 +11,7 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/wave__2_" />
+        android:background="@drawable/wave_2" />
 
     <TextView
         android:id="@+id/UsernameTextView"
@@ -21,8 +21,8 @@
         android:gravity="center_horizontal"
         android:text="@string/username"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/ScoreTextView"
@@ -48,6 +48,17 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
+        android:id="@+id/playButton"
+        android:layout_width="200dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="250dp"
+        android:text="@string/play"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/UsernameTextView" />
+
+    <Button
         android:id="@+id/logoutButton"
         android:layout_width="200dp"
         android:layout_height="56dp"
@@ -70,5 +81,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutButton"
         tools:visibility="visible" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

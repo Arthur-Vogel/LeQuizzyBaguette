@@ -8,8 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.quizz.AppDatabase;
-import com.example.quizz.answer.Answer;
-
 import java.util.List;
 
 @Dao
@@ -25,6 +23,7 @@ public interface QuestionDAO {
 
     @Query("SELECT * FROM " + AppDatabase.QUESTION_TABLE + " ORDER BY id")
     List<Question> getAllQuestion();
+
 
     @Query("SELECT * FROM " + AppDatabase.QUESTION_TABLE + " WHERE topicId == :topicId" )
     List<Question> getQuestionByTopicId(int topicId);

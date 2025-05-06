@@ -1,9 +1,12 @@
-package com.example.quizz;
+package com.example.quizz.user;
 
 import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.quizz.AppDatabase;
+import com.example.quizz.LandingPage;
 
 import java.util.List;
 import java.util.concurrent.Callable;
