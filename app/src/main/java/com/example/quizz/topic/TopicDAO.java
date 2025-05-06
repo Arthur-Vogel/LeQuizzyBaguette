@@ -23,4 +23,10 @@ public interface TopicDAO {
 
     @Query("SELECT * FROM " + AppDatabase.TOPIC_TABLE + " ORDER BY id")
     LiveData<List<Topic>> getAllTopics();
+
+    @Query("SELECT id FROM " + AppDatabase.TOPIC_TABLE + " WHERE topic == :topic")
+    int getTopicIdFromName(String topic);
+
+    @Query("SELECT * FROM " + AppDatabase.TOPIC_TABLE + " WHERE topic == :topic")
+    Topic getTopicFromName(String topic);
 }

@@ -44,4 +44,10 @@ public class TopicRepository {
     public LiveData<List<Topic>> getAllTopics() {
         return topicDAO.getAllTopics();
     }
+
+    public int getTopicIdFromName(String topicName){return topicDAO.getTopicIdFromName(topicName);}
+
+    public Topic getTopicFromName(String topicName){
+        return topicDAO.getTopicFromName(topicName);
+    }
 }

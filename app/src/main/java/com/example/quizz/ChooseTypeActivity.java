@@ -3,6 +3,7 @@ package com.example.quizz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseTypeActivity extends AppCompatActivity {
-
+    private static final String USER_ID = "com.example.quizz.USER_ID";
+    private int userId;
     ActivityChooseTypeBinding binding;
 
     String[] difficulties = { "Random", "Easy", "Normal", "Hard", "Impossible" };
@@ -27,8 +29,10 @@ public class ChooseTypeActivity extends AppCompatActivity {
     ArrayAdapter<String> topicAdapter;
     ArrayAdapter<String> difficultyAdapter;
 
-    public static Intent chooseTypeIntentFactory(Context context) {
-        return new Intent(context, ChooseTypeActivity.class);
+    public static Intent chooseTypeIntentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, ChooseTypeActivity.class);
+        intent.putExtra(USER_ID, userId);
+        return intent;
     }
 
 
@@ -37,6 +41,8 @@ public class ChooseTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityChooseTypeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        userId = getIntent().getIntExtra(USER_ID, -1);
+        Log.w(LandingPage.TAG, "FILS DE PUTE" + userId);
 
         ChooseTypeViewModel viewModel = new ViewModelProvider(this).get(ChooseTypeViewModel.class);
 
@@ -75,6 +81,10 @@ public class ChooseTypeActivity extends AppCompatActivity {
         binding.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String selectedTopic = topicDropDown.getText().toString();
+                String selectedDifficulty = difficultyDropdown.getText().toString();
+
+                Intent intent = QuestionActivity.QuestionActivityIntentFactory(getApplicationContext(), selectedTopic, 5, userId);
                 startActivity(QuestionActivity.QuestionIntentFactory(getApplicationContext()));
             }
         });

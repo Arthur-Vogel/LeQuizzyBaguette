@@ -33,32 +33,36 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import com.example.quizz.databinding.ActivityQuestionBinding;
+import com.example.quizz.topic.Topic;
+import com.example.quizz.topic.TopicRepository;
 import com.example.quizz.user.User;
 import com.example.quizz.user.UserRepository;
 
 public class QuestionActivity extends AppCompatActivity {
     ExecutorService executor = Executors.newSingleThreadExecutor();
-    public static final String TOPIC_ID = "com.example.quizz.TOPIC_ID";
+    public static final String TOPIC_NAME = "com.example.quizz.TOPIC_NAME";
     public static final String PAGE_MAX = "com.example.quizz.PAGE_MAX";
     private static final String USER_ID = "com.example.quizz.USER_ID";
     public int page = 1;
     public int maxpage = 5;
     public int topicId = -1;
     public int userId;
+    public Topic topic;
 
     private ActivityQuestionBinding binding;
     private QuestionRepository questionRepository;
     private AnswerRepository answerRepository;
     private UserRepository userRepository;
+    private TopicRepository topicRepository;
 
     private List<Question> questionsList;
     private Question question;
     private List<Answer> answerList;
     private User user;
 
-    public static Intent QuestionActivityIntentFactory(Context applicationContext, int topicId, int nb_question_u_want, int userId) {
+    public static Intent QuestionActivityIntentFactory(Context applicationContext, String topicName, int nb_question_u_want, int userId) {
         Intent intent = new Intent(applicationContext, QuestionActivity.class);
-        intent.putExtra(TOPIC_ID, topicId);
+        intent.putExtra(TOPIC_NAME, topicName);
         intent.putExtra(PAGE_MAX, nb_question_u_want);
         intent.putExtra(USER_ID, userId);
         return intent;
@@ -79,6 +83,7 @@ public class QuestionActivity extends AppCompatActivity {
         questionRepository = QuestionRepository.getRepository(getApplication());
         answerRepository = AnswerRepository.getRepository(getApplication());
         userRepository = UserRepository.getRepository(getApplication());
+        topicRepository = TopicRepository.getRepository(getApplication());
         userId = getIntent().getIntExtra(USER_ID, -1);
         if (userId == -1)
             Toast.makeText(this, "User ID not found in QuestionActivity", Toast.LENGTH_SHORT).show();
@@ -98,9 +103,20 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         // Topic
-        topicId = getIntent().getIntExtra(TOPIC_ID, -1);
-        String topic = "Topic: " + topicId;
-        binding.textViewTopic.setText(topic);
+//        Callable<Topic> topicTask = () -> topicRepository.getTopicFromName(getIntent().getStringExtra(TOPIC_NAME));
+//        Future<Topic> topicFuture = executor.submit(topicTask);
+//        try {
+//            topic = topicFuture.get();
+//            if (topic == null){
+//                Log.e(LandingPage.TAG, "Error TOPIC selection");
+//            }
+//        } catch (ExecutionException | InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//        topicId = topic.getId();
+        topicId = 0;
+        String topic_str = "Topic: " + topicId;
+        binding.textViewTopic.setText(topic_str);
         Log.i(LandingPage.TAG, "---------- Topic id: ---------- " + topicId);
 
         // Page count
@@ -241,7 +257,8 @@ public class QuestionActivity extends AppCompatActivity {
         if (page < maxpage) {
             if (questionsList.size() <= 1) {
                 Toast.makeText(this, "No more questions to ask!", Toast.LENGTH_SHORT).show();
-                //startActivity();
+                Intent intent = ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext(), userId);
+                startActivity(intent);
                 return;
             }
 
@@ -268,7 +285,8 @@ public class QuestionActivity extends AppCompatActivity {
             String page_str = page + "";
             binding.textViewPage.setText(page_str);
         } else {
-            //startActivity();
+            Intent intent = ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext(), userId);
+            startActivity(intent);
         }
     }
 
