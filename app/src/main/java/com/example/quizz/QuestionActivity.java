@@ -64,6 +64,7 @@ public class QuestionActivity extends AppCompatActivity {
         return intent;
     }
 
+
     public static Intent QuestionIntentFactory(Context context) {
         return new Intent(context, QuestionActivity.class);
     }
