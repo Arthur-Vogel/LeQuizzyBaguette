@@ -81,6 +81,9 @@ public class LandingPage extends AppCompatActivity {
         });
 
 
+
+
+
     }
 
     public void logout() {
@@ -143,7 +146,21 @@ public class LandingPage extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            binding.leaderboardButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //start Leaderboard Activity
+                    Intent intent = new Intent(LandingPage.this, LeadborderActivity.class);
+                    intent.putExtra("userId", user.id);
+                    startActivity(intent);
+                }
+            });
+
+
+
         });
+
+
     }
 
     private void checkIfAdmin(User user) {
