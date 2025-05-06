@@ -10,9 +10,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
-import com.example.quizz.User;
-import com.example.quizz.UserRepository;
+import com.example.quizz.user.User;
 import com.example.quizz.databinding.ActivityLoginBinding;
+import com.example.quizz.user.UserRepository;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

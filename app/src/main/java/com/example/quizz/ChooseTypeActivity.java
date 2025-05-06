@@ -16,13 +16,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.example.quizz.databinding.ActivityChooseTypeBinding;
+import com.example.quizz.topic.TopicRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChooseTypeActivity extends AppCompatActivity {
 
     ActivityChooseTypeBinding binding;
 
-    String[] topics = { "Food", "Culture", "Geography", "History", "Famous People" };
-    String[] difficulties = { "Easy", "Normal", "Hard", "Impossible" };
+    String[] difficulties = { "Random", "Easy", "Normal", "Hard", "Impossible" };
     AutoCompleteTextView topicDropDown;
     AutoCompleteTextView difficultyDropdown;
     ArrayAdapter<String> topicAdapter;
@@ -38,6 +41,10 @@ public class ChooseTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityChooseTypeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        List<String> topics = new ArrayList<>();
+        topics.add("Random");
+        //TopicRepository.getRepository(getApplication()).getAllTopics();
 
         topicDropDown = binding.topicInput;
         topicAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, topics);

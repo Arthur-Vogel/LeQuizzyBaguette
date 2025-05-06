@@ -1,4 +1,4 @@
-package com.example.quizz;
+package com.example.quizz.user;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.quizz.User;
+import com.example.quizz.AppDatabase;
 
 import java.util.List;
 

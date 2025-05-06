@@ -13,20 +13,27 @@ import com.example.quizz.answer.Answer;
 import com.example.quizz.answer.AnswerDAO;
 import com.example.quizz.question.Question;
 import com.example.quizz.question.QuestionDAO;
+import com.example.quizz.user.User;
+import com.example.quizz.user.UserDAO;
+import com.example.quizz.topic.Topic;
+import com.example.quizz.topic.TopicDAO;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Question.class, Answer.class}, version = 12, exportSchema = false)
+@Database(entities = {User.class, Question.class, Answer.class, Topic.class}, version = 17, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
     private final static String DATABASE_NAME = "quizz_database";
     public static final String QUESTION_TABLE = "question_table";
     public static final String ANSWER_TABLE = "answer_table";
     public static final String USER_TABLE = "user_table";
+    public static final String TOPIC_TABLE = "topic_table";
+
     public abstract UserDAO userDAO();
     public abstract QuestionDAO questionDAO();
     public abstract AnswerDAO answerDAO();
+    public abstract TopicDAO topicDAO();
     private static final int NUMBER_OF_THREADS = 4;
 
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -54,6 +61,14 @@ public abstract class AppDatabase extends RoomDatabase {
             super.onCreate(db);
             Log.i(LandingPage.TAG, "DATABASE CREATED!");
             databaseWriteExecutor.execute(() -> {
+                TopicDAO topicDAO = INSTANCE.topicDAO();
+                topicDAO.deleteAll();
+                topicDAO.insert(new Topic("Food"));
+                topicDAO.insert(new Topic("Culture"));
+                topicDAO.insert(new Topic("History"));
+                topicDAO.insert(new Topic("Geography"));
+                topicDAO.insert(new Topic("Famous People"));
+
                 UserDAO dao = INSTANCE.userDAO();
                 dao.deleteAll();
                 User admin = new User("admin1", "admin1");

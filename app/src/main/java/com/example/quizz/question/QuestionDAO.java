@@ -8,8 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.quizz.AppDatabase;
-import com.example.quizz.answer.Answer;
-
 import java.util.List;
 
 @Dao
@@ -24,7 +22,7 @@ public interface QuestionDAO {
     void deleteAll();
 
     @Query("SELECT * FROM " + AppDatabase.QUESTION_TABLE + " ORDER BY id")
-    LiveData<List<Question>> getAllQuestion();
+    LiveData<List<Question>> getAllQuestions();
 
     @Query("SELECT * FROM " + AppDatabase.QUESTION_TABLE + " WHERE topicId == :topicId" )
     LiveData<Question> getQuestionByTopicId(int topicId);
