@@ -4,19 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.quizz.databinding.ActivityChooseTypeBinding;
-import com.example.quizz.topic.TopicRepository;
+import com.example.quizz.topic.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +38,19 @@ public class ChooseTypeActivity extends AppCompatActivity {
         binding = ActivityChooseTypeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        List<String> topics = new ArrayList<>();
-        topics.add("Random");
-        //TopicRepository.getRepository(getApplication()).getAllTopics();
+        ChooseTypeViewModel viewModel = new ViewModelProvider(this).get(ChooseTypeViewModel.class);
 
         topicDropDown = binding.topicInput;
-        topicAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, topics);
-        topicDropDown.setAdapter(topicAdapter);
+        viewModel.allTopics.observe(this, topicList -> {
+            List<String> topics = new ArrayList<>();
+            topics.add("Random");
+
+            for (Topic topic : topicList) {
+                topics.add(topic.getTopic());
+            }
+            ArrayAdapter<String> topicAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, topics);
+            topicDropDown.setAdapter(topicAdapter);
+        });
 
         difficultyDropdown = binding.difficultyInput;
         difficultyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, difficulties);
@@ -84,3 +86,5 @@ public class ChooseTypeActivity extends AppCompatActivity {
         });
     }
 }
+
+
