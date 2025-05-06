@@ -1,4 +1,4 @@
-package com.example.quizz;
+package com.example.quizz.user;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.quizz.User;
+import com.example.quizz.AppDatabase;
 
 import java.util.List;
 
@@ -36,5 +36,8 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE id == :userId" )
     LiveData<User> getUserByUserId(int userId);
+
+    @Query("UPDATE " + AppDatabase.USER_TABLE + " SET username = :newName WHERE id == :userId ")
+    void renameUser(String newName, int userId);
 }
 

@@ -24,7 +24,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardContainer"
         android:layout_width="380dp"
@@ -39,7 +38,7 @@
 
 
         <LinearLayout
-            android:layout_width="379dp"
+            android:layout_width="380dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp">
@@ -48,7 +47,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username">
+                android:hint="@string/username">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/usernameInput"
@@ -69,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Password">
+                android:hint="@string/password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordInput"
@@ -90,10 +89,23 @@
                 android:id="@+id/signUpButton"
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Sign Up"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/sign_up"
                 android:textAllCaps="false"
+                android:textSize="30sp"
+                app:cornerRadius="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/backButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#414141"
+                android:layout_gravity="center"
+                android:text="@string/back"
+                android:textSize="20sp"
                 app:cornerRadius="16dp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

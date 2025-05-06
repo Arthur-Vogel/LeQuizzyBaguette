@@ -1,9 +1,12 @@
-package com.example.quizz;
+package com.example.quizz.user;
 
 import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.quizz.AppDatabase;
+import com.example.quizz.LandingPage;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -45,7 +48,7 @@ public class UserRepository {
         try {
             return future.get();
         }catch (InterruptedException | ExecutionException e){
-            Log.d(LandingPage.TAG, "Problem getting GymLogRepository, thread error");
+            Log.d(LandingPage.TAG, "Problem getting UserRepository, thread error");
         }
         return null;
     }
@@ -65,6 +68,13 @@ public class UserRepository {
         AppDatabase.databaseWriteExecutor.execute( ()->
         {
             userDAO.insert(user);
+        });
+    }
+
+    public void renameUser(String newName, int userId) {
+        AppDatabase.databaseWriteExecutor.execute(() ->
+        {
+            userDAO.renameUser(newName, userId);
         });
     }
 

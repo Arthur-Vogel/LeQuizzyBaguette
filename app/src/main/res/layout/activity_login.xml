@@ -11,7 +11,7 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/wave" />
+        android:background="@drawable/wave_2" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardContainer"
@@ -26,6 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,11 +37,12 @@
                 android:id="@+id/titleLoginTextView"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@string/login"
-                android:textSize="32sp"
+                android:text="@string/sign_in"
                 android:textColor="#E57373"
+                android:textSize="40sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -48,19 +50,19 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_username"
+                android:hint="@string/username"
                 android:layout_marginTop="32dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/usernameInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:textSize="18sp"
-                    android:textColor="#212121"
                     android:backgroundTint="#FFEBEE"
                     android:drawableStart="@android:drawable/ic_menu_edit"
-                    android:drawableTint="#E57373" />
+                    android:drawableTint="#E57373"
+                    android:inputType="text"
+                    android:textColor="#212121"
+                    android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -72,27 +74,39 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordInput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textSize="18sp"
-                    android:textColor="#212121"
+                    android:layout_height="60dp"
                     android:backgroundTint="#FFEBEE"
                     android:drawableStart="@android:drawable/ic_lock_lock"
-                    android:drawableTint="#E57373" />
+                    android:drawableTint="#E57373"
+                    android:inputType="textPassword"
+                    android:textColor="#212121"
+                    android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/loginButton"
-                android:layout_width="162dp"
-                android:layout_height="79dp"
-                android:layout_marginTop="24dp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="170dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#E57373"
                 android:gravity="center"
                 android:text="@string/login_button"
                 android:textSize="18sp"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#E57373"
-                app:cornerRadius="16dp"
-                style="@style/Widget.MaterialComponents.Button" />
+                app:cornerRadius="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/backButton"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="-70dp"
+                android:layout_marginStart="180dp"
+                android:backgroundTint="#414141"
+                android:gravity="center"
+                android:text="@string/back"
+                android:textSize="17sp"
+                app:cornerRadius="16dp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
