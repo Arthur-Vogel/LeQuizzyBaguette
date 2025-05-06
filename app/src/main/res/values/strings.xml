@@ -13,4 +13,15 @@
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
     <string name="paris_skyline_desc">Paris skyline</string>
+    <string name="score">Score:</string>
+    <string name="_2000">2000</string>
+    <string name="_1">1</string>
+    <string name="slash">/</string>
+    <string name="_5">5</string>
+    <string name="what_is_the_capital_of_france">What is the capital of France?</string>
+    <string name="topic_french_culture">🎓 Topic: French Culture</string>
+    <string name="paris">Paris</string>
+    <string name="lyon">Lyon</string>
+    <string name="marseille">Marseille</string>
+    <string name="nice">Nice</string>
 </resources>
