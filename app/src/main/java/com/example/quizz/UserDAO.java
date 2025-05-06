@@ -36,5 +36,8 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE id == :userId" )
     LiveData<User> getUserByUserId(int userId);
+
+    @Query("UPDATE " + AppDatabase.USER_TABLE + " SET username = :newName WHERE id == :userId ")
+    void renameUser(String newName, int userId);
 }
 
