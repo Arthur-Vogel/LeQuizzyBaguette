@@ -43,6 +43,12 @@ public class LoginActivity extends AppCompatActivity {
                 verifyUser();
             }
         });
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
     }
 
     private boolean isAlreadyLogged(){
