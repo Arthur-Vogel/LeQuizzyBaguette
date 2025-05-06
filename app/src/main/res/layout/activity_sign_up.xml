@@ -5,14 +5,24 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="#c2b7da"
     tools:context=".SignUpActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/wave_3" />
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🎓 Welcome to Le Quizzy Baguette ✨\nCreate your account to begin!"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardContainer"
@@ -21,10 +31,10 @@
         android:layout_margin="32dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
@@ -99,6 +109,20 @@
                 app:cornerRadius="16dp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/policyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📜 By signing up, you agree to our Terms and Privacy Policy."
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
