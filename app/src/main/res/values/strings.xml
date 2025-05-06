@@ -13,4 +13,6 @@
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
     <string name="paris_skyline_desc">Paris skyline</string>
+    <string name="textview">TextView</string>
+    <string name="the_background_of_the_app">the background of the app</string>
 </resources>

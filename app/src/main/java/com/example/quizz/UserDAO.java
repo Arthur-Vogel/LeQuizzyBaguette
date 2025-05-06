@@ -27,6 +27,8 @@ public interface UserDAO {
     @Query("DELETE FROM " + AppDatabase.USER_TABLE + " WHERE id = :userId")
     void deleteUserById(int userId);*/
 
+
+
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " ORDER BY username")
     LiveData<List<User>> getAllUsers();
 

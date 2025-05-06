@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class UserRepository {
-    public final UserDAO userDAO;
+    private final UserDAO userDAO;
     private static UserRepository instance;
 
     private UserRepository(Application application) {
@@ -75,7 +75,7 @@ public class UserRepository {
         });
     }
 
-    public static void renameUser(String newName, int userId, UserDAO userDAO) {
+    public  void renameUser(String newName, int userId) {
         AppDatabase.databaseWriteExecutor.execute(() ->
         {
             userDAO.renameUser(newName, userId);

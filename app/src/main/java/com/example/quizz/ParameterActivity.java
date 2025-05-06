@@ -1,5 +1,6 @@
 package com.example.quizz;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,6 +19,7 @@ public class ParameterActivity extends AppCompatActivity {
     //private User user;
 
     //@Override
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState, User user) {
         super.onCreate(savedInstanceState);
         binding = ActivityParameterBinding.inflate(getLayoutInflater());
@@ -36,7 +38,7 @@ public class ParameterActivity extends AppCompatActivity {
         binding.restartPointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.score = 0; // NE MARCHE PAS NE CHANGE PAS DE VALEUR DANS UNE DB!!!!!
+                user.score = 0;
 
             }
         });
@@ -50,7 +52,8 @@ public class ParameterActivity extends AppCompatActivity {
                     // Show error message
                     return;
                 }
-               UserRepository.renameUser(newName, user.id, userRepository.userDAO);
+               userRepository.renameUser(newName, user.id);
+
                 // Update the UI or show a success message
             }
         });
@@ -61,6 +64,10 @@ public class ParameterActivity extends AppCompatActivity {
                 //change the light mode
             }
         });
+
+        binding.nameAndPointsTextView.setText("Name : " + user.username + "\n"
+                                            + "Score : "+ user.score);
+
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_parameter);

@@ -5,7 +5,21 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.quizz.ParameterActivity">
+    tools:context="com.example.quizz.ParameterActivity"
+    tools:ignore="ExtraText">
+
+    <ImageView
+        android:id="@+id/fondNuage"
+        android:layout_width="760dp"
+        android:layout_height="1554dp"
+        android:contentDescription="@string/the_background_of_the_app"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backgroundnuage" />
+
 
     <TextView
         android:id="@+id/Title"
@@ -58,22 +72,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.89" />
 
+
     <EditText
         android:id="@+id/nameInput"
-        android:layout_width="101dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="292dp"
+        android:layout_width="168dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="288dp"
         android:autofillHints=""
         android:hint="new name"
         android:inputType="text"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/renameButton"
@@ -82,10 +94,10 @@
         android:text="rename"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.696"
+        app:layout_constraintHorizontal_bias="0.713"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576" />
+        app:layout_constraintVertical_bias="0.582" />
 
     <TextView
         android:id="@+id/nameAndPointsTextView"
@@ -100,4 +112,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.327" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
