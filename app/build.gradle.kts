@@ -44,10 +44,16 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.ext.junit)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
     implementation(libs.room.runtime)
     annotationProcessor( libs.room.compiler)
+
+    androidTestImplementation(libs.room.testing)
+    androidTestImplementation(libs.test.core)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.truth)
 }
