@@ -7,8 +7,6 @@ import androidx.lifecycle.LiveData;
 
 import com.example.quizz.AppDatabase;
 import com.example.quizz.LandingPage;
-import com.example.quizz.User;
-import com.example.quizz.UserRepository;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -19,13 +17,13 @@ public class QuestionRepository {
     private final QuestionDAO questionDAO;
     private static QuestionRepository instance;
 
-    private QuestionRepository(Application application){
+    private QuestionRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         questionDAO = db.questionDAO();
     }
 
-    public static QuestionRepository getRepository(Application application){
-        if (instance != null){
+    public static QuestionRepository getRepository(Application application) {
+        if (instance != null) {
             return instance;
         }
         Future<QuestionRepository> future = AppDatabase.databaseWriteExecutor.submit(
@@ -38,7 +36,7 @@ public class QuestionRepository {
         );
         try {
             return future.get();
-        }catch (InterruptedException | ExecutionException e){
+        } catch (InterruptedException | ExecutionException e) {
             Log.d(LandingPage.TAG, "Problem getting QuestionRepository, thread error");
         }
         return null;
@@ -55,44 +53,44 @@ public class QuestionRepository {
         return instance;
     }
 
-    public void insertQuestion(Question... question){
+    public void insertQuestion(Question... question) {
         AppDatabase.databaseWriteExecutor.execute( ()->
         {
             questionDAO.insert(question);
         });
     }
 
-    public void deleteQuestion(Question question){
+    public void deleteQuestion(Question question) {
         AppDatabase.databaseWriteExecutor.execute( () ->
         {
             questionDAO.delete(question);
         });
     }
 
-    public LiveData<Question> getQuestionByTopicId(int topicId){
+    public List<Question> getQuestionByTopicId(int topicId){
         return questionDAO.getQuestionByTopicId(topicId);
     }
 
-    public LiveData<List<Question>> getAllQuestion(){
+    public List<Question> getAllQuestion(){
         return questionDAO.getAllQuestion();
     }
 
-    public void deleteAllByTopicId(int topicId){
+    public void deleteAllByTopicId(int topicId) {
         AppDatabase.databaseWriteExecutor.execute( () ->
         {
             questionDAO.deleteAllByTopicId(topicId);
         });
     }
 
-    public String getQuestionById(int questionId){
+    public String getQuestionById(int questionId) {
         return questionDAO.getQuestionById(questionId);
     }
 
-    public int getIdByQuestionString(String questionString){
+    public int getIdByQuestionString(String questionString) {
         return questionDAO.getIdByQuestionString(questionString);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         AppDatabase.databaseWriteExecutor.execute(questionDAO::deleteAll);
     }
 }
