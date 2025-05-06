@@ -85,24 +85,24 @@ public abstract class AppDatabase extends RoomDatabase {
                 questionDAO.deleteAll();
                 Question question1 = new Question("What is the capital of France?", 0, 0, 100);
                 questionDAO.insert(question1);
-                Answer answer1 = new Answer(question1.id, "Lyon", false);
+                Answer answer1 = new Answer(question1.answerListId, "Lyon", false);
                 answerDAO.insert(answer1);
-                Answer answer2 = new Answer(question1.id, "Paris", true);
+                Answer answer2 = new Answer(question1.answerListId, "Paris", true);
                 answerDAO.insert(answer2);
-                Answer answer3 = new Answer(question1.id, "Marseille", false);
+                Answer answer3 = new Answer(question1.answerListId, "Marseille", false);
                 answerDAO.insert(answer3);
-                Answer answer4 = new Answer(question1.id, "Toulouse", false);
+                Answer answer4 = new Answer(question1.answerListId, "Toulouse", false);
                 answerDAO.insert(answer4);
 
                 Question question2 = new Question("What colors are in the French flag?", 1, 0, 100);
                 questionDAO.insert(question2);
-                Answer answer5 = new Answer(question2.id, "Blue, White, Red, Black", false);
+                Answer answer5 = new Answer(question2.answerListId, "Blue, White, Red, Black", false);
                 answerDAO.insert(answer5);
-                Answer answer6 = new Answer(question2.id, "Purple, Blue, White", false);
+                Answer answer6 = new Answer(question2.answerListId, "Purple, Blue, White", false);
                 answerDAO.insert(answer6);
-                Answer answer7 = new Answer(question2.id, "Blue, White, Red", true);
+                Answer answer7 = new Answer(question2.answerListId, "Blue, White, Red", true);
                 answerDAO.insert(answer7);
-                Answer answer8 = new Answer(question2.id, "Yellow, Orange, Red", false);
+                Answer answer8 = new Answer(question2.answerListId, "Yellow, Orange, Red", false);
                 answerDAO.insert(answer8);
             });
         }

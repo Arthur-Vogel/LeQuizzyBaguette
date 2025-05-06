@@ -63,6 +63,7 @@ public class LandingPage extends AppCompatActivity {
                 showLogoutDialog();
             }
         });
+
         binding.playButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +75,7 @@ public class LandingPage extends AppCompatActivity {
 
     private void play() {
         startActivity(ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext()));
+
     }
 
     private void logout() {
@@ -153,14 +155,11 @@ public class LandingPage extends AppCompatActivity {
     private void checkIfAdmin(User user) {
         Log.println(Log.ERROR, TAG, "user" + user.isAdmin + user.username);
         if (user.isAdmin) {
-            Toast.makeText(this, "karthi if", Toast.LENGTH_SHORT).show();
-
             binding.AdminAreaButton.setVisibility(View.VISIBLE);
             binding.AdminAreaButton.setOnClickListener(v -> {
                 // Handle admin button
             });
         } else {
-            Toast.makeText(this, "karthi else", Toast.LENGTH_SHORT).show();
             binding.AdminAreaButton.setVisibility(View.INVISIBLE);
         }
     }
