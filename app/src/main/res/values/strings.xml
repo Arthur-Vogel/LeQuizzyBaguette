@@ -67,4 +67,5 @@
     <string name="sign_up_emoji">Sign Up ✍️</string>
     <string name="sign_in_emoji">Sign In 🧑‍💼</string>
     <string name="back">Back</string>
+    <string name="choose_question_type">Choose Questions Type</string>
 </resources>
