@@ -118,6 +118,32 @@
                 android:textSize="20sp"
                 app:cornerRadius="16dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/hintButton"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="start"
+                    android:backgroundTint="#8CEF5555"
+                    android:gravity="center"
+                    android:text="@string/hint"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/skipButton"
+                    android:layout_marginStart="200dp"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:gravity="center"
+                    android:backgroundTint="#8CEF5555"
+                    android:text="@string/skip"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -125,19 +151,19 @@
         android:id="@+id/cardViewScore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
+            android:layout_marginEnd="5dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -147,9 +173,9 @@
 
             <TextView
                 android:id="@+id/textViewScore"
-                android:layout_marginStart="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:text="@string/_2000" />
         </LinearLayout>
@@ -159,19 +185,19 @@
         android:id="@+id/cardViewPage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
+            android:layout_marginEnd="5dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/textViewPage"
@@ -181,17 +207,17 @@
                 android:text="@string/_1" />
 
             <TextView
-                android:layout_marginStart="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:text="@string/slash" />
 
             <TextView
                 android:id="@+id/textViewPageMax"
-                android:layout_marginStart="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:text="@string/_5" />
         </LinearLayout>

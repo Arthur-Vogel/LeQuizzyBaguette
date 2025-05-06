@@ -24,4 +24,6 @@
     <string name="lyon">Lyon</string>
     <string name="marseille">Marseille</string>
     <string name="nice">Nice</string>
+    <string name="skip">Skip</string>
+    <string name="hint">Hint</string>
 </resources>
