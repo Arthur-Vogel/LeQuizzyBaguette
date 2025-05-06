@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,26 +26,37 @@ import androidx.lifecycle.LiveData;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class QuestionActivity extends AppCompatActivity {
-    public static final String TOPIC_ID = "topic_id";
-    public static final String PAGE_MAX = "page_max";
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+    public static final String TOPIC_ID = "com.example.quizz.TOPIC_ID";
+    public static final String PAGE_MAX = "com.example.quizz.PAGE_MAX";
+    private static final String USER_ID = "com.example.quizz.USER_ID";
     public int page = 1;
     public int maxpage = 5;
     public int topicId = -1;
+    public int userId;
 
     private ActivityQuestionBinding binding;
     private QuestionRepository questionRepository;
     private AnswerRepository answerRepository;
+    private UserRepository userRepository;
 
     private List<Question> questionsList;
     private Question question;
     private List<Answer> answerList;
+    private User user;
 
-    public static Intent QuestionActivityIntentFactory(Context applicationContext, int topicId, int nb_question_u_want){
+    public static Intent QuestionActivityIntentFactory(Context applicationContext, int topicId, int nb_question_u_want, int userId) {
         Intent intent = new Intent(applicationContext, QuestionActivity.class);
         intent.putExtra(TOPIC_ID, topicId);
         intent.putExtra(PAGE_MAX, nb_question_u_want);
+        intent.putExtra(USER_ID, userId);
         return intent;
     }
 
@@ -57,31 +69,95 @@ public class QuestionActivity extends AppCompatActivity {
         // Repo
         questionRepository = QuestionRepository.getRepository(getApplication());
         answerRepository = AnswerRepository.getRepository(getApplication());
+        userRepository = UserRepository.getRepository(getApplication());
+        userId = getIntent().getIntExtra(USER_ID, -1);
+        if (userId == -1)
+            Toast.makeText(this, "User ID not found in QuestionActivity", Toast.LENGTH_SHORT).show();
+        else {
+            Log.i(LandingPage.TAG, "----- User id: ----- " + userId);
+            // Get user in the user variable
+            userRepository.getUserByUserId(userId).observe(this, user -> {
+                if (user == null) {
+                    Toast.makeText(this, "Error loading user. Try restarting app.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                this.user = user;
+                String score = user.id + "points";
+                binding.textViewScore.setText(score);
+            });
+        }
 
         // Topic
         topicId = getIntent().getIntExtra(TOPIC_ID, -1);
         String topic = "Topic: " + topicId;
         binding.textViewTopic.setText(topic);
+        Log.i(LandingPage.TAG, "---------- Topic id: ---------- " + topicId);
 
         // Page count
-        binding.textViewPage.setText(page);
+        String page_str = page + "";
+        binding.textViewPage.setText(page_str);
         maxpage = getIntent().getIntExtra(PAGE_MAX, 5);
-        binding.textViewPageMax.setText(maxpage);
+        String maxpage_str = maxpage + "";
+        binding.textViewPageMax.setText(maxpage_str);
 
         // Question
-        questionsList = questionRepository.getQuestionByTopicId(topicId);
-        if (!questionsList.isEmpty()) {
-            question = questionsList.get(new Random().nextInt(questionsList.size()));
+        // Get the List of Question in the questionList variable
+        Callable<List<Question>> questionTask = () -> questionRepository.getQuestionByTopicId(topicId);
+        Future<List<Question>> questionFuture = executor.submit(questionTask);
+        try {
+            questionsList = questionFuture.get();
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
-        // Answers
-        answerList = answerRepository.getAnswerListByQuestionId(question.id);
-        if (answerList.size() != 4){
+        question = questionsList.get(new Random().nextInt(questionsList.size()));
+
+        // Answer
+        Callable<List<Answer>> answerTask = () -> answerRepository.getAnswerListByQuestionId(question.answerListId);
+        Future<List<Answer>> answerFuture = executor.submit(answerTask);
+        try {
+            answerList = answerFuture.get();
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        if (answerList.size() != 4) {
+            Log.w(LandingPage.TAG, "There are not exactly 4 answers in the list");
             Toast.makeText(this, "AnswerList is not size of 4!", Toast.LENGTH_SHORT).show();
         }
         Collections.shuffle(answerList);
 
         updateView();
+
+        // IF DONE WITH LIVEDATA
+//        questionRepository.getQuestionByTopicId(topicId).observe(this, (List<Question>questionList) -> {
+//            if (questionList == null) {
+//                Log.i(LandingPage.TAG, "NOQuestion ???");
+//                Toast.makeText(this, "Error loading question. Try restarting app.", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            questionsList = questionList;
+//            question = questionsList.get(new Random().nextInt(questionsList.size()));
+//
+//            // Answers
+//            answerRepository.getAnswerListByQuestionId(question.answerListId).observe(this, answerList -> {
+//                if (answerList == null) {
+//                    Toast.makeText(this, "Error loading answers. Try restarting app.", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                this.answerList = answerList;
+//                if (this.answerList.size() != 4){
+//                    Log.w(LandingPage.TAG, "There are not exactly 4 answers in the list");
+//                    Toast.makeText(this, "AnswerList is not size of 4!", Toast.LENGTH_SHORT).show();
+//                }
+//                Collections.shuffle(this.answerList);
+//
+//                updateView();
+//            });
+//        });
+
 
         // Buttons onClick
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
@@ -95,11 +171,12 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean isCorrect = answerList.get(0).isCorrect;
-                if (isCorrect){
+                if (isCorrect) {
+                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
                     nextQuestion();
                     // Add points to player
-                }
-                else {
+                } else {
+                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
                     // Points that can be gained are reduced
                 }
             }
@@ -109,11 +186,12 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean isCorrect = answerList.get(1).isCorrect;
-                if (isCorrect){
+                if (isCorrect) {
+                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
                     nextQuestion();
                     // Add points to player
-                }
-                else {
+                } else {
+                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
                     // Points that can be gained are reduced
                 }
             }
@@ -123,11 +201,12 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean isCorrect = answerList.get(2).isCorrect;
-                if (isCorrect){
+                if (isCorrect) {
+                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
                     nextQuestion();
                     // Add points to player
-                }
-                else {
+                } else {
+                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
                     // Points that can be gained are reduced
                 }
             }
@@ -137,20 +216,21 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean isCorrect = answerList.get(3).isCorrect;
-                if (isCorrect){
+                if (isCorrect) {
+                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
                     nextQuestion();
                     // Add points to player
-                }
-                else {
+                } else {
+                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
                     // Points that can be gained are reduced
                 }
             }
         });
     }
 
-    private void nextQuestion(){
+    private void nextQuestion() {
         if (page < maxpage) {
-            if (questionsList.size() <= 1){
+            if (questionsList.size() <= 1) {
                 Toast.makeText(this, "No more questions to ask!", Toast.LENGTH_SHORT).show();
                 //startActivity();
                 return;
@@ -159,23 +239,31 @@ public class QuestionActivity extends AppCompatActivity {
             questionsList.remove(question);
             question = questionsList.get(new Random().nextInt(questionsList.size()));
 
-            answerList = answerRepository.getAnswerListByQuestionId(question.id);
-            if (answerList.size() != 4){
+            // Answer
+            Callable<List<Answer>> answerTask = () -> answerRepository.getAnswerListByQuestionId(question.answerListId);
+            Future<List<Answer>> answerFuture = executor.submit(answerTask);
+            try {
+                answerList = answerFuture.get();
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (answerList.size() != 4) {
+                Log.w(LandingPage.TAG, "There are not exactly 4 answers in the list");
                 Toast.makeText(this, "AnswerList is not size of 4!", Toast.LENGTH_SHORT).show();
             }
             Collections.shuffle(answerList);
 
-            page += 1;
-            binding.textViewPage.setText(page);
-
             updateView();
-        }
-        else {
+
+            page += 1;
+            String page_str = page + "";
+            binding.textViewPage.setText(page_str);
+        } else {
             //startActivity();
         }
     }
 
-    private void updateView(){
+    private void updateView() {
         binding.textViewQuestion.setText(question.getQuestion());
         binding.buttonAnswer1.setText(answerList.get(0).answer);
         binding.buttonAnswer2.setText(answerList.get(1).answer);

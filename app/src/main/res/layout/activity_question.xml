@@ -204,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/_1" />
+                android:text="@string/page" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -219,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:text="@string/_5" />
+                android:text="@string/max" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
