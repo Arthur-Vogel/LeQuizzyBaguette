@@ -37,6 +37,9 @@ public class LoginActivity extends AppCompatActivity {
         repository = UserRepository.getRepository(getApplication());
 
         if (isAlreadyLogged()){ return; }
+        User admin = new User("admin1", "admin1");
+        admin.isAdmin = true;
+        repository.insertUser(admin);
 
         binding.loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
