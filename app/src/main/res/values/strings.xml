@@ -68,4 +68,7 @@
     <string name="sign_in_emoji">Sign In 🧑‍💼</string>
     <string name="back">Back</string>
     <string name="choose_question_type">Choose Questions Type</string>
+    <string name="start">Start</string>
+    <string name="select_topic">Select Topic</string>
+    <string name="select_difficulty">Select Difficulty</string>
 </resources>

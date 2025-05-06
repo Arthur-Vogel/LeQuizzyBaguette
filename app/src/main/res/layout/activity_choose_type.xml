@@ -34,7 +34,7 @@
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="130dp"
-        android:hint="Select Topic"
+        android:hint="@string/select_topic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title">
@@ -53,7 +53,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="350dp"
         android:layout_height="100dp"
-        android:hint="Select Difficulty"
+        android:hint="@string/select_difficulty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topicDropdown">
@@ -74,10 +74,27 @@
         android:layout_marginTop="50dp"
         android:backgroundTint="#0000D0"
         android:gravity="center"
-        android:text="Start"
-        android:textSize="30sp"
+        android:text="@string/start"
+        android:textSize="26sp"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficultyDropdown" />
+        app:layout_constraintTop_toBottomOf="@+id/difficultyDropdown"
+        app:cornerRadius="16dp" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#414141"
+        android:gravity="center"
+        android:text="@string/back"
+        android:textSize="24sp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startButton"
+        app:cornerRadius="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
