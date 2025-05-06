@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.quizz.databinding.ActivityAdminBinding;
 import com.example.quizz.databinding.ActivityLoginBinding;
 import com.example.quizz.databinding.ActivitySignUpBinding;
+import com.example.quizz.user.UserRepository;
 
 public class AdminActivity extends AppCompatActivity {
     private ActivityAdminBinding binding;
