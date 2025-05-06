@@ -74,7 +74,7 @@ public class LandingPage extends AppCompatActivity {
 
 
     private void play() {
-        startActivity(ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext()));
+        startActivity(ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext(), loggedInUserId));
 
     }
 

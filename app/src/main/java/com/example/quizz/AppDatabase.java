@@ -63,8 +63,9 @@ public abstract class AppDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 TopicDAO topicDAO = INSTANCE.topicDAO();
                 topicDAO.deleteAll();
+                Topic topicCulture = new Topic("Culture");
                 topicDAO.insert(new Topic("Food"));
-                topicDAO.insert(new Topic("Culture"));
+                topicDAO.insert(topicCulture);
                 topicDAO.insert(new Topic("History"));
                 topicDAO.insert(new Topic("Geography"));
                 topicDAO.insert(new Topic("Famous People"));
@@ -83,7 +84,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 QuestionDAO questionDAO = INSTANCE.questionDAO();
                 AnswerDAO answerDAO = INSTANCE.answerDAO();
                 questionDAO.deleteAll();
-                Question question1 = new Question("What is the capital of France?", 0, 0, 100);
+                Question question1 = new Question("What is the capital of France?", 0, topicCulture.getId(), 100);
                 questionDAO.insert(question1);
                 Answer answer1 = new Answer(question1.answerListId, "Lyon", false);
                 answerDAO.insert(answer1);
@@ -94,7 +95,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 Answer answer4 = new Answer(question1.answerListId, "Toulouse", false);
                 answerDAO.insert(answer4);
 
-                Question question2 = new Question("What colors are in the French flag?", 1, 0, 100);
+                Question question2 = new Question("What colors are in the French flag?", 1, topicCulture.getId(), 100);
                 questionDAO.insert(question2);
                 Answer answer5 = new Answer(question2.answerListId, "Blue, White, Red, Black", false);
                 answerDAO.insert(answer5);
