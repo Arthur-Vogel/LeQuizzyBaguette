@@ -22,6 +22,11 @@ public class LoginActivity extends AppCompatActivity {
     private UserRepository repository;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
+    public static Intent loginIntentFactory(Context context){
+        return new Intent(context, LoginActivity.class);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,28 +61,23 @@ public class LoginActivity extends AppCompatActivity {
 
         String username = binding.usernameInput.getText().toString();
 
-        if(username.isEmpty()){
+        if (username.isEmpty()) {
             Toast.makeText(this, "Username may not be blank.", Toast.LENGTH_SHORT).show();
             return;
         }
         LiveData<User> userObserver = repository.getUserByUserName(username);
         userObserver.observe(this, user -> {
-            if (user != null){
+            if (user != null) {
                 String password = binding.passwordInput.getText().toString();
-                if (password.equals(user.password)){
+                if (password.equals(user.password)) {
                     Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
                     startActivity(LandingPage.LandingPageIntentFactory(getApplicationContext(), user.id));
                 } else {
                     Toast.makeText(this, "Invalid password", Toast.LENGTH_SHORT).show();
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    static Intent loginIntentFactory(Context context){
-        return new Intent(context, LoginActivity.class);
     }
 }

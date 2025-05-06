@@ -68,6 +68,17 @@ public class LandingPage extends AppCompatActivity {
                 showLogoutDialog();
             }
         });
+        binding.playButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                play();
+            }
+        }));
+    }
+
+
+    private void play() {
+        startActivity(ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext()));
     }
 
     private void logout() {
@@ -76,8 +87,31 @@ public class LandingPage extends AppCompatActivity {
         getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
 
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
     }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LandingPage.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage("Logout?");
+
+        alertBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertBuilder.create().show();
+    }
+
 
     private void loginUser(Bundle savedInstanceState) {
         Log.i(TAG, "loginUser function started");
@@ -150,28 +184,4 @@ public class LandingPage extends AppCompatActivity {
         outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY, loggedInUserId);
         updateSharedPreference();
     }
-
-    private void showLogoutDialog() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LandingPage.this);
-        final AlertDialog alertDialog = alertBuilder.create();
-
-        alertBuilder.setMessage("Logout?");
-
-        alertBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                logout();
-            }
-        });
-
-        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                alertDialog.dismiss();
-            }
-        });
-
-        alertBuilder.create().show();
-    }
-
 }
