@@ -37,8 +37,7 @@
             android:layout_height="wrap_content"
             android:text="Pancakes"
             android:padding="12dp"
-            android:layout_marginBottom="8dp"
-            android:background="" />
+            android:layout_marginBottom="8dp" />
 
         <RadioButton
             android:id="@+id/radioStrawberries"
@@ -46,8 +45,7 @@
             android:layout_height="wrap_content"
             android:text="Strawberries"
             android:padding="12dp"
-            android:layout_marginBottom="8dp"
-            android:background="" />
+            android:layout_marginBottom="8dp"/>
 
         <RadioButton
             android:id="@+id/radioBanana"
@@ -55,8 +53,7 @@
             android:layout_height="wrap_content"
             android:text="Banana"
             android:padding="12dp"
-            android:layout_marginBottom="8dp"
-            android:background="" />
+            android:layout_marginBottom="8dp" />
     </RadioGroup>
 
     <LinearLayout
