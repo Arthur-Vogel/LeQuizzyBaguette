@@ -11,7 +11,24 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/wave__2_" />
+        android:background="@drawable/wave__2_"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="71dp">
+
+        <ImageButton
+            android:id="@+id/parameterButton"
+            android:layout_width="60dp"
+            android:layout_height="58dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginEnd="325dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/icon_parameter" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/UsernameTextView"

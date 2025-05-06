@@ -80,4 +80,5 @@ public class LoginActivity extends AppCompatActivity {
     static Intent loginIntentFactory(Context context){
         return new Intent(context, LoginActivity.class);
     }
+
 }

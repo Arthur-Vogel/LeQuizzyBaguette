@@ -68,6 +68,18 @@ public class LandingPage extends AppCompatActivity {
                 showLogoutDialog();
             }
         });
+
+        binding.parameterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //start Parameter Activity
+                //Intent intent = ParameterActivity.ParameterActivityIntentFactory(getApplicationContext());
+                Intent intent = new Intent(LandingPage.this, ParameterActivity.class);
+                intent.putExtra("userId", user.id);
+                startActivity(intent);
+            }
+        });
     }
 
     private void logout() {

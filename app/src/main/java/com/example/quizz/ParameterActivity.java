@@ -1,14 +1,19 @@
 package com.example.quizz;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
 
 import com.example.quizz.databinding.ActivityMainBinding;
 import com.example.quizz.databinding.ActivityParameterBinding;
@@ -16,14 +21,37 @@ import com.example.quizz.databinding.ActivityParameterBinding;
 public class ParameterActivity extends AppCompatActivity {
     ActivityParameterBinding binding;
     private UserRepository userRepository;
-    //private User user;
+    private User user;
 
-    //@Override
+    @Override
     @SuppressLint("SetTextI18n")
-    protected void onCreate(Bundle savedInstanceState, User user) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(this, "ParameterActivity ouverte", Toast.LENGTH_SHORT).show();
         binding = ActivityParameterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         userRepository = UserRepository.getRepository(getApplication());
+
+        int userId = getIntent().getIntExtra("userId",-1);
+        Log.d("DEBUG", "Reçu userId = " + userId);
+
+        userRepository.getUserByUserId(userId).observe(this, user -> {
+            Log.d("DEBUG", "Observe déclenché, user = " + user);
+            if (user == null) {
+                Toast.makeText(this, "Error loading user. Try restarting app.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            this.user = user;
+            /*binding.nameAndPointsTextView.setText("Name : " + this.user.username + "\n"
+                    + "Score : "+ this.user.score);*/
+            Log.d("DEBUG", "Name : " + this.user.username + "\n"
+                    + "Score : "+ this.user.score);
+        });
+
+        binding.nameAndPointsTextView.setText("Name : ");
+        binding.Title.setText("Settings");
+
+
 
 
         binding.deleteAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -65,17 +93,20 @@ public class ParameterActivity extends AppCompatActivity {
             }
         });
 
-        binding.nameAndPointsTextView.setText("Name : " + user.username + "\n"
-                                            + "Score : "+ user.score);
+
 
 
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_parameter);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+    }
+    static Intent ParameterActivityIntentFactory(Context context){
+        return new Intent(context, ParameterActivity.class);
     }
 
 
