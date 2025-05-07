@@ -88,6 +88,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
                 startActivity(QuestionActivity.QuestionIntentFactory(getApplicationContext()));
             }
         });
+
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,5 +97,3 @@ public class ChooseTypeActivity extends AppCompatActivity {
         });
     }
 }
-
-
