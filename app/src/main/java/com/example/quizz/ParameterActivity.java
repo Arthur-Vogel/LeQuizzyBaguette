@@ -110,6 +110,7 @@ public class ParameterActivity extends AppCompatActivity {
                 userRepository.renameUser(newName, user.id);
 
                 // Update the UI or show a success message
+
             }
         });
         binding.backButton.setOnClickListener(new View.OnClickListener() {

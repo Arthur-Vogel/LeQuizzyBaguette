@@ -48,7 +48,7 @@
         android:id="@+id/Title"
         android:layout_width="385dp"
         android:layout_height="69dp"
-        android:text="Leadborder"
+        android:text="Leaderboard"
         android:textAlignment="center"
         android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/laurier_image"
@@ -74,14 +74,14 @@
 
     <ImageButton
         android:id="@+id/leaderboard_back_button"
-        android:layout_width="64dp"
-        android:layout_height="70dp"
+        android:layout_width="52dp"
+        android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="@+id/Title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43"
+        app:layout_constraintVertical_bias="0.363"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
 
