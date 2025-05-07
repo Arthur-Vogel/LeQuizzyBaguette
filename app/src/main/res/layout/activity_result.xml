@@ -20,7 +20,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Your Results"
+        android:text="@string/your_results"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <TextView
-        android:id="@+id/correctQuestions"
+        android:id="@+id/correctAnswers"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:gravity="center"
@@ -66,7 +66,20 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/correctQuestions" />
+        app:layout_constraintTop_toBottomOf="@id/correctAnswers" />
+
+    <TextView
+        android:id="@+id/bestScore"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Best Score : 1000"
+        android:textColor="#414141"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finalScore" />
 
     <Button
         android:id="@+id/startButton"
@@ -75,7 +88,7 @@
         android:layout_marginTop="400dp"
         android:backgroundTint="#0000D0"
         android:gravity="center"
-        android:text="Play Again"
+        android:text="@string/play_again"
         android:textSize="24sp"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +103,7 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="#414141"
         android:gravity="center"
-        android:text="Landing Page"
+        android:text="@string/landing_page"
         android:textSize="20sp"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"

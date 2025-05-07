@@ -12,13 +12,12 @@ public class User {
 
     @NonNull
     public String username;
-
     @NonNull
     public String password;
 
     public boolean isAdmin;
-
     public int score;
+
 
     public User(@NonNull String username, @NonNull String password) {
         this.username = username;

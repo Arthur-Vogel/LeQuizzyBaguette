@@ -74,8 +74,6 @@ public class LandingPage extends AppCompatActivity {
                 showLogoutDialog();
             }
         });
-
-
         binding.playButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,9 +161,9 @@ public class LandingPage extends AppCompatActivity {
             updateSharedPreference();
             checkIfAdmin(user);
             binding.UsernameTextView.setText(user.username);
-            binding.ScoreTextView.setText("Score: " + user.score);
-
-
+            String bestScore = "Best Score : " + user.getScore();
+            binding.scoreTextView.setText(bestScore);
+          
             binding.parameterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -186,12 +184,7 @@ public class LandingPage extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
-
-
         });
-
-
     }
 
     private void checkIfAdmin(User user) {

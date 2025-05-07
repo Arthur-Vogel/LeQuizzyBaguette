@@ -82,6 +82,9 @@
     <string name="select_topic">Select Topic</string>
     <string name="select_difficulty">Select Difficulty</string>
     <string name="play">Play</string>
+    <string name="your_results">Your Results</string>
+    <string name="landing_page">Landing Page</string>
+    <string name="play_again">Play Again</string>
 
 
 </resources>

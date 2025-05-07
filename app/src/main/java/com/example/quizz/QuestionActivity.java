@@ -1,27 +1,19 @@
 package com.example.quizz;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 
 import com.example.quizz.answer.Answer;
 import com.example.quizz.answer.AnswerRepository;
 import com.example.quizz.databinding.ActivityQuestionBinding;
 import com.example.quizz.question.Question;
 import com.example.quizz.question.QuestionRepository;
-
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.LiveData;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +24,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.example.quizz.databinding.ActivityQuestionBinding;
 import com.example.quizz.topic.Topic;
 import com.example.quizz.topic.TopicRepository;
 import com.example.quizz.user.User;
@@ -43,11 +34,13 @@ public class QuestionActivity extends AppCompatActivity {
     public static final String TOPIC_NAME = "com.example.quizz.TOPIC_NAME";
     public static final String PAGE_MAX = "com.example.quizz.PAGE_MAX";
     private static final String USER_ID = "com.example.quizz.USER_ID";
-    public int page = 1;
-    public int maxpage = 5;
-    public int topicId = -1;
-    public int userId;
-    public Topic topic;
+
+    private int questionScore = 0;
+    private int totalScore = 0;
+    private int questionNumber = 1;
+    private int totalQuestions = 5;
+    private int correctAnswers = 0;
+    private boolean correct = true;
 
     private ActivityQuestionBinding binding;
     private QuestionRepository questionRepository;
@@ -58,20 +51,20 @@ public class QuestionActivity extends AppCompatActivity {
     private List<Question> questionsList;
     private Question question;
     private List<Answer> answerList;
+    private Topic topic;
+    private int topicId = -1;
     private User user;
+    private int userId;
 
-    public static Intent QuestionActivityIntentFactory(Context applicationContext, String topicName, int nb_question_u_want, int userId) {
+
+    public static Intent QuestionActivityIntentFactory(Context applicationContext, String topicName, int totalQuestions, int userId) {
         Intent intent = new Intent(applicationContext, QuestionActivity.class);
         intent.putExtra(TOPIC_NAME, topicName);
-        intent.putExtra(PAGE_MAX, nb_question_u_want);
+        intent.putExtra(PAGE_MAX, totalQuestions);
         intent.putExtra(USER_ID, userId);
         return intent;
     }
 
-
-    public static Intent QuestionIntentFactory(Context context) {
-        return new Intent(context, QuestionActivity.class);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +78,7 @@ public class QuestionActivity extends AppCompatActivity {
         userRepository = UserRepository.getRepository(getApplication());
         topicRepository = TopicRepository.getRepository(getApplication());
         userId = getIntent().getIntExtra(USER_ID, -1);
+
         if (userId == -1)
             Toast.makeText(this, "User ID not found in QuestionActivity", Toast.LENGTH_SHORT).show();
         else {
@@ -114,16 +108,17 @@ public class QuestionActivity extends AppCompatActivity {
 //            throw new RuntimeException(e);
 //        }
 //        topicId = topic.getId();
+
         topicId = 0;
         String topic_str = "Topic: " + topicId;
         binding.textViewTopic.setText(topic_str);
         Log.i(LandingPage.TAG, "---------- Topic id: ---------- " + topicId);
 
         // Page count
-        String page_str = page + "";
+        String page_str = questionNumber + "";
         binding.textViewPage.setText(page_str);
-        maxpage = getIntent().getIntExtra(PAGE_MAX, 5);
-        String maxpage_str = maxpage + "";
+        totalQuestions = getIntent().getIntExtra(PAGE_MAX, 5);
+        String maxpage_str = questionNumber + "";
         binding.textViewPageMax.setText(maxpage_str);
 
         // Question
@@ -137,6 +132,7 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         question = questionsList.get(new Random().nextInt(questionsList.size()));
+        questionScore = question.getScorePoints();
 
         // Answer
         Callable<List<Answer>> answerTask = () -> answerRepository.getAnswerListByQuestionId(question.answerListId);
@@ -188,14 +184,15 @@ public class QuestionActivity extends AppCompatActivity {
         binding.endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ResultActivity.class));
+                loadResultPage();
             }
         });
 
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextQuestion();
+                correct = false;
+                nextQuestion(true);
             }
         });
 
@@ -204,12 +201,9 @@ public class QuestionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean isCorrect = answerList.get(0).isCorrect;
                 if (isCorrect) {
-                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-                    nextQuestion();
-                    // Add points to player
+                    Correct();
                 } else {
-                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
-                    // Points that can be gained are reduced
+                    Wrong();
                 }
             }
         });
@@ -219,12 +213,9 @@ public class QuestionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean isCorrect = answerList.get(1).isCorrect;
                 if (isCorrect) {
-                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-                    nextQuestion();
-                    // Add points to player
+                    Correct();
                 } else {
-                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
-                    // Points that can be gained are reduced
+                    Wrong();
                 }
             }
         });
@@ -234,12 +225,9 @@ public class QuestionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean isCorrect = answerList.get(2).isCorrect;
                 if (isCorrect) {
-                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-                    nextQuestion();
-                    // Add points to player
+                    Correct();
                 } else {
-                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
-                    // Points that can be gained are reduced
+                    Wrong();
                 }
             }
         });
@@ -249,12 +237,9 @@ public class QuestionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean isCorrect = answerList.get(3).isCorrect;
                 if (isCorrect) {
-                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-                    nextQuestion();
-                    // Add points to player
+                    Correct();
                 } else {
-                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
-                    // Points that can be gained are reduced
+                    Wrong();
                 }
             }
         });
@@ -274,17 +259,39 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    private void nextQuestion() {
-        if (page < maxpage) {
+    private void Correct() {
+        Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+        nextQuestion(false);
+    }
+
+    private void Wrong() {
+        Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
+        questionScore -= 20;
+        correct = false;
+    }
+
+    private void nextQuestion(boolean skipped) {
+        if (correct) {
+            correctAnswers++;
+        }
+        if (!skipped) {
+            totalScore += questionScore;
+            if (totalScore > user.getScore()) {
+                user.setScore(totalScore);
+            }
+        }
+        correct = true;
+
+        if (questionNumber < totalQuestions) {
             if (questionsList.size() <= 1) {
                 Toast.makeText(this, "No more questions to ask!", Toast.LENGTH_SHORT).show();
-                Intent intent = ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext(), userId);
-                startActivity(intent);
+                loadResultPage();
                 return;
             }
 
             questionsList.remove(question);
             question = questionsList.get(new Random().nextInt(questionsList.size()));
+            questionScore = question.getScorePoints();
 
             // Answer
             Callable<List<Answer>> answerTask = () -> answerRepository.getAnswerListByQuestionId(question.answerListId);
@@ -302,13 +309,12 @@ public class QuestionActivity extends AppCompatActivity {
 
             updateView();
 
-            page += 1;
-            String page_str = page + "";
+            questionNumber++;
+            String page_str = questionNumber + "";
             binding.textViewPage.setText(page_str);
         }
         else {
-            Intent intent = ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext(), userId);
-            startActivity(intent);
+            loadResultPage();
         }
     }
 
@@ -318,5 +324,10 @@ public class QuestionActivity extends AppCompatActivity {
         binding.buttonAnswer2.setText(answerList.get(1).answer);
         binding.buttonAnswer3.setText(answerList.get(2).answer);
         binding.buttonAnswer4.setText(answerList.get(3).answer);
+    }
+
+
+    private void loadResultPage() {
+        startActivity(ResultActivity.ResultIntentFactory(getApplicationContext(), totalQuestions, correctAnswers, totalScore, user.getScore()));
     }
 }
