@@ -262,17 +262,17 @@ public class QuestionActivity extends AppCompatActivity {
         binding.hintButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                /*
-                boolean isCorrect = answerList.get(3).isCorrect;
-                if (isCorrect) {
-                    Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-                    nextQuestion();
-                    // Add points to player
-                } else {
-                    Toast.makeText(QuestionActivity.this, "False! Try again", Toast.LENGTH_SHORT).show();
-                    // Points that can be gained are reduced
-                }*/
+
+                int randomIndex = new Random().nextInt(4);
+
+                while (answerList.get(randomIndex).isCorrect){
+                    randomIndex = new Random().nextInt(4);
+                }
+
+
+
+                //Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
