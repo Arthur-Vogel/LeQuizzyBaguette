@@ -42,7 +42,6 @@ public class ChooseTypeActivity extends AppCompatActivity {
         binding = ActivityChooseTypeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         userId = getIntent().getIntExtra(USER_ID, -1);
-        Log.w(LandingPage.TAG, "FILS DE PUTE" + userId);
 
         ChooseTypeViewModel viewModel = new ViewModelProvider(this).get(ChooseTypeViewModel.class);
 
@@ -84,8 +83,8 @@ public class ChooseTypeActivity extends AppCompatActivity {
                 String selectedTopic = topicDropDown.getText().toString();
                 String selectedDifficulty = difficultyDropdown.getText().toString();
 
-                Intent intent = QuestionActivity.QuestionActivityIntentFactory(getApplicationContext(), selectedTopic, 5, userId);
-                startActivity(QuestionActivity.QuestionIntentFactory(getApplicationContext()));
+                startActivity(QuestionActivity.QuestionActivityIntentFactory(getApplicationContext(),
+                        selectedTopic, 5, userId));
             }
         });
 
