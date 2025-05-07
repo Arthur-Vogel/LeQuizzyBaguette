@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="#0776F4"
+                android:backgroundTint="#8CEF5555"
                 android:text="@string/paris"
                 android:textSize="20sp"
                 app:cornerRadius="16dp" />
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="#0776F4"
+                android:backgroundTint="#8CEF5555"
                 android:text="@string/lyon"
                 android:textSize="20sp"
                 app:cornerRadius="16dp" />
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="#0776F4"
+                android:backgroundTint="#8CEF5555"
                 android:text="@string/marseille"
                 android:textSize="20sp"
                 app:cornerRadius="16dp" />
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:backgroundTint="#0776F4"
+                android:backgroundTint="#8CEF5555"
                 android:text="@string/nice"
                 android:textSize="20sp"
                 app:cornerRadius="16dp" />
@@ -127,7 +127,7 @@
                     android:layout_width="90dp"
                     android:layout_height="48dp"
                     android:layout_gravity="start"
-                    android:backgroundTint="#8CEF5555"
+                    android:backgroundTint="#414141"
                     android:gravity="center"
                     android:text="@string/hint"
                     android:textSize="15sp" />
@@ -139,7 +139,7 @@
                     android:layout_height="48dp"
                     android:layout_gravity="end"
                     android:gravity="center"
-                    android:backgroundTint="#8CEF5555"
+                    android:backgroundTint="#414141"
                     android:text="@string/skip"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -222,6 +222,22 @@
                 android:text="@string/max" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+
+    <Button
+        android:id="@+id/endButton"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#669bbc"
+        android:gravity="center"
+        android:text="Finish"
+        android:textSize="24sp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAnswers"
+        app:cornerRadius="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

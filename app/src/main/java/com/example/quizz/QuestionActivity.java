@@ -185,6 +185,13 @@ public class QuestionActivity extends AppCompatActivity {
 
 
         // Buttons onClick
+        binding.endButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ResultActivity.class));
+            }
+        });
+
         binding.skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,7 +291,8 @@ public class QuestionActivity extends AppCompatActivity {
             page += 1;
             String page_str = page + "";
             binding.textViewPage.setText(page_str);
-        } else {
+        }
+        else {
             Intent intent = ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext(), userId);
             startActivity(intent);
         }
