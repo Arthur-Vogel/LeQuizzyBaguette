@@ -42,6 +42,13 @@ public class AnswerRepository {
         return null;
     }
 
+    public void insert(Answer... answer){
+        AppDatabase.databaseWriteExecutor.execute( ()->
+        {
+            answerDAO.insert(answer);
+        });
+    }
+
     public List<Answer> getAnswerListByQuestionId(int questionId) {
         return answerDAO.getAnswerListByQuestionId(questionId);
     }

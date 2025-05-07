@@ -13,10 +13,10 @@ import java.util.List;
 @Dao
 public interface AnswerDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Answer answer);
+    void insert(Answer... answer);
 
     @Delete
-    void delete(Answer answer);
+    void delete(Answer... answer);
 
     @Query("DELETE FROM " + AppDatabase.ANSWER_TABLE)
     void deleteAll();
