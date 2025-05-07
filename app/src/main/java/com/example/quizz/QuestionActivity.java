@@ -243,6 +243,20 @@ public class QuestionActivity extends AppCompatActivity {
                 }
             }
         });
+
+        binding.hintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int randomIndex = new Random().nextInt(4);
+
+                while (answerList.get(randomIndex).isCorrect){
+                    randomIndex = new Random().nextInt(4);
+                }
+
+                Toast.makeText(QuestionActivity.this, "it is not the answer number" + (randomIndex+1), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void Correct() {

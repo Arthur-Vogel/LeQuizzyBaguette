@@ -80,6 +80,7 @@ public class LandingPage extends AppCompatActivity {
                 play();
             }
         }));
+
     }
 
 
@@ -162,7 +163,7 @@ public class LandingPage extends AppCompatActivity {
             binding.UsernameTextView.setText(user.username);
             String bestScore = "Best Score : " + user.getScore();
             binding.scoreTextView.setText(bestScore);
-
+          
             binding.parameterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
