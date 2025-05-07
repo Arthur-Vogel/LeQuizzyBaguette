@@ -39,7 +39,7 @@
         android:id="@+id/lightModeSwitch"
         android:layout_width="116dp"
         android:layout_height="53dp"
-        android:text="Light mode"
+        android:text="Light Mode"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/nameAndPointsTextView"
         app:layout_constraintEnd_toEndOf="parent"

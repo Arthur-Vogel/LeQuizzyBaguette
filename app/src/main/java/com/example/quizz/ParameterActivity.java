@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,24 +16,43 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.LiveData;
 
+import android.content.SharedPreferences;
+
+import androidx.appcompat.widget.SwitchCompat;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+
 import com.example.quizz.databinding.ActivityMainBinding;
 import com.example.quizz.databinding.ActivityParameterBinding;
 
 public class ParameterActivity extends AppCompatActivity {
+
     ActivityParameterBinding binding;
     private UserRepository userRepository;
     //private LandingPage landingPage;
     private User user;
+    private Switch themeSwitch;
+    private SharedPreferences prefs;
+    boolean isDarkMode;
 
     @Override
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        isDarkMode = prefs.getBoolean("dark_mode", false);
+
+
+
         Toast.makeText(this, "ParameterActivity ouverte", Toast.LENGTH_SHORT).show();
         binding = ActivityParameterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         userRepository = UserRepository.getRepository(getApplication());
-        //landingPage = LandingPage.inflate(getApplicationContext(), userRepository);
+
 
         int userId = getIntent().getIntExtra("userId",-1);
         Log.d("DEBUG", "Reçu userId = " + userId);
@@ -100,10 +120,17 @@ public class ParameterActivity extends AppCompatActivity {
             }
         });
 
+        binding.lightModeSwitch.setText("" + (isDarkMode ? "Dark Mode" : "Light Mode"));
         binding.lightModeSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //change the light mode
+                isDarkMode = !isDarkMode;
+
+
+
+                AppCompatDelegate.setDefaultNightMode(isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+                prefs.edit().putBoolean("dark_mode", isDarkMode).apply();
+
             }
         });
 
@@ -117,6 +144,8 @@ public class ParameterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
 
     }
     static Intent ParameterActivityIntentFactory(Context context){
