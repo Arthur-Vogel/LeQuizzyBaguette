@@ -31,16 +31,42 @@
     <TextView
         android:id="@+id/totalQuestions"
         android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
         android:gravity="center"
-        android:text="Your Results"
-        android:textColor="#0000FF"
-        android:textSize="40sp"
+        android:text="Total Questions : 13"
+        android:textColor="#414141"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/correctQuestions"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Correct Questions : 9"
+        android:textColor="#414141"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalQuestions" />
+
+    <TextView
+        android:id="@+id/finalScore"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Final Score : 240"
+        android:textColor="#414141"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/correctQuestions" />
 
     <Button
         android:id="@+id/startButton"
@@ -61,7 +87,7 @@
         android:id="@+id/backButton"
         android:layout_width="200dp"
         android:layout_height="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#414141"
         android:gravity="center"
         android:text="Landing Page"
