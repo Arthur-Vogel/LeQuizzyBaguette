@@ -23,9 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private UserRepository repository;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public static Intent loginIntentFactory(Context context){
-        return new Intent(context, LoginActivity.class);
-    }
+
 
 
     @Override

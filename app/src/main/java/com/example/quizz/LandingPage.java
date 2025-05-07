@@ -98,7 +98,7 @@ public class LandingPage extends AppCompatActivity {
 
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
-
+/*
     private void showLogoutDialog() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LandingPage.this);
         final AlertDialog alertDialog = alertBuilder.create();
@@ -120,7 +120,7 @@ public class LandingPage extends AppCompatActivity {
         });
 
         alertBuilder.create().show();
-    }
+    }*/
 
 
     private void loginUser(Bundle savedInstanceState) {

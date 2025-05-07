@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:background="@drawable/wave__2_"
+        android:background="@drawable/wave_2"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="71dp">
 

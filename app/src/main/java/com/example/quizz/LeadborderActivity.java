@@ -15,6 +15,8 @@ import androidx.lifecycle.LiveData;
 
 import com.example.quizz.databinding.ActivityLeadborderBinding;
 import com.example.quizz.databinding.ActivityParameterBinding;
+import com.example.quizz.user.User;
+import com.example.quizz.user.UserRepository;
 
 import java.util.List;
 
