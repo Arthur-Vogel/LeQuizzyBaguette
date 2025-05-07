@@ -25,8 +25,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 
-import com.example.quizz.databinding.ActivityMainBinding;
 import com.example.quizz.databinding.ActivityParameterBinding;
+import com.example.quizz.user.UserRepository;
 
 public class ParameterActivity extends AppCompatActivity {
 

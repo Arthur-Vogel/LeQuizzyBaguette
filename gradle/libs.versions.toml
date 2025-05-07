@@ -8,10 +8,12 @@ material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 roomCompiler = "2.6.1"
+navigationFragment = "2.6.0"
+navigationUi = "2.6.0"
+androidxJunit = "1.2.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -19,6 +21,14 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+room-testing = { module = "androidx.room:room-testing", version = "2.6.1" }
+test-core = { module = "androidx.test:core", version = "1.5.0" }
+test-ext-junit = { module = "androidx.test.ext:junit", version = "1.1.5" }
+test-runner = { module = "androidx.test:runner", version = "1.5.2" }
+truth = { module = "com.google.truth:truth", version = "1.1.5" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

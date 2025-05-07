@@ -1,7 +1,9 @@
-package com.example.quizz;
+package com.example.quizz.user;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.example.quizz.AppDatabase;
 
 @Entity(tableName = AppDatabase.USER_TABLE)
 public class User {
