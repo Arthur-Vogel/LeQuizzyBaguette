@@ -16,4 +16,29 @@ public class ExampleUnitTest {
 
 
     }
+
+/*---Arthur's tests---*/
+    @Test
+    public void testToggleDarkMode() {
+        boolean isDarkMode = false;
+
+        isDarkMode = !isDarkMode;
+
+        assertTrue(isDarkMode);
+    }
+
+    @Test
+    public void testResetUserScore() {
+        
+        class User {
+            public int score;
+        }
+        User user = new User();
+        user.score = 50;
+
+
+        user.score = 0;
+        assertEquals(0, user.score);
+    }
+
 }

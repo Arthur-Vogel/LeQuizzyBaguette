@@ -82,6 +82,7 @@ public class LandingPage extends AppCompatActivity {
                 play();
             }
         }));
+
     }
 
 
@@ -162,6 +163,8 @@ public class LandingPage extends AppCompatActivity {
             updateSharedPreference();
             checkIfAdmin(user);
             binding.UsernameTextView.setText(user.username);
+            binding.ScoreTextView.setText("Score: " + user.score);
+
 
             binding.parameterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
