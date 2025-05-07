@@ -18,10 +18,13 @@ public class User {
 
     public boolean isAdmin;
 
+    public int score;
+
     public User(@NonNull String username, @NonNull String password) {
         this.username = username;
         this.password = password;
         this.isAdmin = false;
+        this.score = 0;
     }
 
     public boolean isAdmin() {
@@ -30,6 +33,14 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     @NonNull

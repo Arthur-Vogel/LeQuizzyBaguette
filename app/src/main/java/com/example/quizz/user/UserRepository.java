@@ -71,7 +71,14 @@ public class UserRepository {
         });
     }
 
-    public void renameUser(String newName, int userId) {
+    public void removeUser(User user){
+        AppDatabase.databaseWriteExecutor.execute( ()->
+        {
+            userDAO.delete(user);
+        });
+    }
+
+    public  void renameUser(String newName, int userId) {
         AppDatabase.databaseWriteExecutor.execute(() ->
         {
             userDAO.renameUser(newName, userId);
