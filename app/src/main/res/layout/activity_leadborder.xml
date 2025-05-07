@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LeadborderActivity">
+
+    <ImageView
+        android:id="@+id/laurier_image"
+        android:layout_width="409dp"
+        android:layout_height="182dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.233"
+        app:srcCompat="@drawable/laurier" />
+
+    <ImageView
+        android:id="@+id/laurier_image2"
+        android:layout_width="409dp"
+        android:layout_height="182dp"
+        android:layout_marginTop="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/laurier_image"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/laurier" />
+
+    <ImageView
+        android:id="@+id/laurier_image3"
+        android:layout_width="409dp"
+        android:layout_height="182dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/laurier_image2"
+        app:layout_constraintVertical_bias="0.036"
+        app:srcCompat="@drawable/laurier" />
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="385dp"
+        android:layout_height="69dp"
+        android:text="Leadborder"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/laurier_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.768" />
+
+    <TextView
+        android:id="@+id/leadboard"
+        android:layout_width="228dp"
+        android:layout_height="564dp"
+        android:text="textview"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:lineSpacingExtra="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title"
+        app:layout_constraintVertical_bias="0.225" />
+
+    <ImageButton
+        android:id="@+id/leaderboard_back_button"
+        android:layout_width="64dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.43"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.quizz;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,10 @@ import com.example.quizz.databinding.ActivityLandingPageBinding;
 import com.example.quizz.user.User;
 import com.example.quizz.user.UserRepository;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 public class LandingPage extends AppCompatActivity {
 
     static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.quizz.SAVED_INSTANCE_STATE_USERID_KEY";
@@ -26,8 +31,10 @@ public class LandingPage extends AppCompatActivity {
     ActivityLandingPageBinding binding;
     private UserRepository repository;
 
+
     private static final int LOGGED_OUT = -1;
     private int loggedInUserId = -1;
+    private static LandingPage instance;
 
     private User user;
 
@@ -36,6 +43,9 @@ public class LandingPage extends AppCompatActivity {
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
     }
+    public static LandingPage getInstance() {
+        return instance;
+    }
 
 
     @Override
@@ -43,6 +53,7 @@ public class LandingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLandingPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        instance = this;
 
         repository = UserRepository.getRepository(getApplication());
         if (repository == null){
@@ -64,6 +75,7 @@ public class LandingPage extends AppCompatActivity {
             }
         });
 
+
         binding.playButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,16 +88,17 @@ public class LandingPage extends AppCompatActivity {
     private void play() {
         startActivity(ChooseTypeActivity.chooseTypeIntentFactory(getApplicationContext(), loggedInUserId));
 
+
     }
 
-    private void logout() {
+    public void logout() {
         loggedInUserId = LOGGED_OUT;
         updateSharedPreference();
         getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
 
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
-
+/*
     private void showLogoutDialog() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LandingPage.this);
         final AlertDialog alertDialog = alertBuilder.create();
@@ -107,7 +120,7 @@ public class LandingPage extends AppCompatActivity {
         });
 
         alertBuilder.create().show();
-    }
+    }*/
 
 
     private void loginUser(Bundle savedInstanceState) {
@@ -149,7 +162,33 @@ public class LandingPage extends AppCompatActivity {
             updateSharedPreference();
             checkIfAdmin(user);
             binding.UsernameTextView.setText(user.username);
+
+            binding.parameterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //start Parameter Activity
+                    //Intent intent = ParameterActivity.ParameterActivityIntentFactory(getApplicationContext());
+                    Intent intent = new Intent(LandingPage.this, ParameterActivity.class);
+                    intent.putExtra("userId", user.id);
+                    startActivity(intent);
+                }
+            });
+            binding.leaderboardButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //start Leaderboard Activity
+                    Intent intent = new Intent(LandingPage.this, LeadborderActivity.class);
+                    intent.putExtra("userId", user.id);
+                    startActivity(intent);
+                }
+            });
+
+
+
         });
+
+
     }
 
     private void checkIfAdmin(User user) {
@@ -178,4 +217,32 @@ public class LandingPage extends AppCompatActivity {
         outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY, loggedInUserId);
         updateSharedPreference();
     }
+
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LandingPage.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage("Logout?");
+
+        alertBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertBuilder.create().show();
+    }
+
+
+
+
 }

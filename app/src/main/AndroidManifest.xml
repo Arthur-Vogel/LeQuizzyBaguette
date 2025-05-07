@@ -13,11 +13,17 @@
         android:theme="@style/Theme.Quizz"
         tools:targetApi="31">
         <activity
-            android:name=".AdminActivity"/>
-      <activity
+
+            android:name=".LeadborderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChooseTypeActivity"
             android:exported="false"
             android:theme="@style/Theme.Quizz" />
+
         <activity
             android:name=".ParameterActivity"
             android:exported="false" />
