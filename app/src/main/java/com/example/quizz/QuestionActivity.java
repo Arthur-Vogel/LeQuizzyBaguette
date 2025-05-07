@@ -269,10 +269,7 @@ public class QuestionActivity extends AppCompatActivity {
                     randomIndex = new Random().nextInt(4);
                 }
 
-
-
-                //Toast.makeText(QuestionActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(QuestionActivity.this, "it is not the answer number" + randomIndex, Toast.LENGTH_SHORT).show();
             }
         });
     }
